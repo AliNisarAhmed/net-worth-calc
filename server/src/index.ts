@@ -7,7 +7,7 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Hello world!");
 });
 
-app.get("/timezones", (req: Request, res: Response) => {
+app.get("/api/timezones", (req: Request, res: Response) => {
   return res.json(locations); 
 })
 
