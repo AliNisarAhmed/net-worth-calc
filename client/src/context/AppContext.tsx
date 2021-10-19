@@ -1,5 +1,5 @@
 import React from "react";
-import { AppState, Action, Dispatch } from "../types";
+import { AppState, Action, Dispatch, FormFields } from "../types";
 import { data as netWorth } from "../data";
 import { useForm, FormProvider } from "react-hook-form";
 
@@ -27,7 +27,15 @@ const initialState: AppState = {
 
 function AppContextProvider({ children }: AppContextProviderProps) {
   const [state, dispatch] = React.useReducer(appStateReducer, initialState);
-  const methods = useForm();
+
+  const methods = useForm<FormFields>({
+    defaultValues: {
+      cashAndInvestments: netWorth.assets.cashAndInvestments,
+      longTermAssets: netWorth.assets.longTermAssets,
+      longTerm: netWorth.liabilities.longTerm,
+      shortTerm: netWorth.liabilities.shortTerm,
+    },
+  });
 
   const value = {
     state,

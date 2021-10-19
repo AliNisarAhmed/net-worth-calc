@@ -22,10 +22,15 @@ export interface AppState {
   netWorth: NetWorth;
 }
 
-export type Action
-  = { type: ActionType, payload: any }
+export type Action = { type: ActionType; payload: any };
 
-export type ActionType
-  = 'InputFieldChanged'
+export type ActionType = "InputFieldChanged";
 
-export type Dispatch = (action: Action) => void
+export type Dispatch = (action: Action) => void;
+
+export type FormFields = {
+  cashAndInvestments: LineItem[];
+  longTermAssets: LineItem[];
+  shortTerm: LineItem[];
+  longTerm: LineItem[];
+};

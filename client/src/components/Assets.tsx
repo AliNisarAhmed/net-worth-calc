@@ -13,8 +13,13 @@ const Assets = ({ assets }: Props) => {
       <LineItems
         items={assets.cashAndInvestments}
         header="Cash And Investments"
+        name="cashAndInvestments"
       />
-      <LineItems items={assets.longTermAssets} header="Long Term Assets" />
+      <LineItems
+        items={assets.longTermAssets}
+        header="Long Term Assets"
+        name="longTermAssets"
+      />
       <TotalAssets assets={assets} />
     </div>
   );

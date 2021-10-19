@@ -12,8 +12,13 @@ const Liabilities = ({ liabilities }: Props) => {
       <LineItems
         items={liabilities.shortTerm}
         header="Short Term Liabilities"
+        name="shortTerm"
       />
-      <LineItems items={liabilities.longTerm} header="Long Term Liabilities" />
+      <LineItems
+        items={liabilities.longTerm}
+        header="Long Term Liabilities"
+        name="longTerm"
+      />
       <TotalLiabilities liabilities={liabilities} />
     </div>
   );
