@@ -1,34 +1,22 @@
 import React, { useEffect, useState } from "react";
 import * as API from "./api";
 import "./App.css";
-import { LocationWithTimezone } from "./types";
+import { data } from "./data";
+import Assets from "./components/Assets";
+import Liabilities from "./components/Liabilities";
 
 function App() {
-  const [timezones, setTimezones] = useState<LocationWithTimezone[]>([]);
-
-  useEffect(() => {
-    fetchdata();
-
-    async function fetchdata() {
-      const tz = await API.fetchTimezones();
-      setTimezones(tz);
-    }
-  }, []);
-
   return (
     <div className="App">
-      <h1>Timezones</h1>
+      <h1>Tracking your Net Worth</h1>
       <div>
-        {timezones.map((tz) => (
-          <div key={tz.timezoneName}>
-            <h3>Location: {tz.location}</h3>
-            <p>
-              Timezone Name: {tz.timezoneName} - {tz.timezoneAbbr}
-            </p>
-            <p>UTC Offset: {tz.utcOffset}</p>
-          </div>
-        ))}
+        <p>Select Currency: CAD</p>
       </div>
+      <div>
+        <p>Net Worth: 1212130.00</p>
+      </div>
+      <Assets assets={data.assets} />
+      <Liabilities liabilities={data.liabilities} />
     </div>
   );
 }

@@ -1,0 +1,13 @@
+import { Asset, Liability, LineItem } from "../types";
+
+export function calculateTotalAssets(assets: Asset): number {
+  return sumLineItems(assets.cashAndInvestments) + sumLineItems(assets.longTermAssets);
+}
+
+export function calculateTotalLiabilities(liabilities: Liability): number {
+  return sumLineItems(liabilities.longTerm) + sumLineItems(liabilities.shortTerm);
+}
+
+function sumLineItems(lineItems: LineItem[]): number {
+  return lineItems.reduce((acc, item) => item.amount + acc, 0);
+}
