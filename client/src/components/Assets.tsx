@@ -2,6 +2,7 @@ import { Asset } from "../types";
 import LineItems from "../components/LineItems";
 import { calculateTotalAssets } from "../utils";
 import { useFormContext } from "react-hook-form";
+import NumberFormat from "react-number-format";
 
 const Assets = () => {
   const { watch } = useFormContext();
@@ -21,5 +22,20 @@ const Assets = () => {
 export default Assets;
 
 const TotalAssets = ({ assets }: { assets: Asset }) => {
-  return <div>Total Assets: {calculateTotalAssets(assets)}</div>;
+  return (
+    <div>
+      Total Assets:{" "}
+      <NumberFormat
+        defaultValue={0}
+        thousandSeparator=","
+        allowNegative={false}
+        allowLeadingZeros={false}
+        displayType="text"
+        type="text"
+        value={calculateTotalAssets(assets)}
+        decimalScale={2}
+        fixedDecimalScale
+      />
+    </div>
+  );
 };
