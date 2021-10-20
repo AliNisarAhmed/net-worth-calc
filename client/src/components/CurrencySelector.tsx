@@ -1,18 +1,5 @@
-import { CurrencyCode } from "../types";
+import { allCurrencies as currencies } from "../types";
 import { useFormContext } from "react-hook-form";
-
-const currencies: CurrencyCode[] = [
-  "usd",
-  "cad",
-  "cny",
-  "eur",
-  "pkr",
-  "inr",
-  "gbp",
-  "aud",
-  "sgd",
-  "aed",
-];
 
 const CurrencySelector = () => {
   const { register } = useFormContext();

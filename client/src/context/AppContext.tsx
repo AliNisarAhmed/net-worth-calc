@@ -3,6 +3,8 @@ import { AppState, Action, Dispatch, FormFields } from "../types";
 import { data as netWorth } from "../data";
 import { useForm, FormProvider } from "react-hook-form";
 import { getItemFromLocalStorage } from "../localStorage";
+import { yupResolver } from '@hookform/resolvers/yup';
+import { netWorthSchema } from "../validation";
 
 const AppContext = React.createContext<
   { state: AppState; dispatch: Dispatch } | undefined
@@ -37,6 +39,7 @@ function AppContextProvider({ children }: AppContextProviderProps) {
 
   const methods = useForm<FormFields>({
     defaultValues: defaultFormValues,
+    resolver: yupResolver(netWorthSchema)
   });
 
   const value = {

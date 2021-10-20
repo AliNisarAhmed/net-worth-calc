@@ -51,3 +51,16 @@ export type CurrencyCode =
   | "aud"
   | "sgd"
   | "aed";
+
+export const allCurrencies: CurrencyCode[] = [
+  "usd",
+  "cad",
+  "cny",
+  "eur",
+  "pkr",
+  "inr",
+  "gbp",
+  "aud",
+  "sgd",
+  "aed",
+];
