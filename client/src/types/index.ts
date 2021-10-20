@@ -29,21 +29,25 @@ export type ActionType = "InputFieldChanged";
 export type Dispatch = (action: Action) => void;
 
 export type FormFields = {
-  cashAndInvestments: LineItem[];
-  longTermAssets: LineItem[];
-  shortTerm: LineItem[];
-  longTerm: LineItem[];
-  currency: CurrencyCode
+  assets: {
+    cashAndInvestments: LineItem[];
+    longTermAssets: LineItem[];
+  };
+  liabilities: {
+    shortTerm: LineItem[];
+    longTerm: LineItem[];
+  };
+  currency: CurrencyCode;
 };
 
-export type CurrencyCode
-  = 'usd'
-  | 'cad'
-  | 'cny'
-  | 'eur'
-  | 'pkr'
-  | 'inr'
-  | 'gbp'
-  | 'aud'
-  | 'sgd'
-  | 'aed'
+export type CurrencyCode =
+  | "usd"
+  | "cad"
+  | "cny"
+  | "eur"
+  | "pkr"
+  | "inr"
+  | "gbp"
+  | "aud"
+  | "sgd"
+  | "aed";

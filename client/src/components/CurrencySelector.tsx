@@ -1,4 +1,3 @@
-import React from "react";
 import { CurrencyCode } from "../types";
 import { useFormContext } from 'react-hook-form'
 

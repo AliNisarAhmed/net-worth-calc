@@ -1,7 +1,4 @@
-import React, { useEffect, useState } from "react";
-import * as API from "./api";
 import "./App.css";
-import { data } from "./data";
 import Assets from "./components/Assets";
 import Liabilities from "./components/Liabilities";
 import { AppContextProvider } from "./context/AppContext";
@@ -16,8 +13,8 @@ function App() {
         <div>
           <p>Net Worth: 1212130.00</p>
         </div>
-        <Assets assets={data.assets} />
-        <Liabilities liabilities={data.liabilities} />
+        <Assets />
+        <Liabilities />
       </AppContextProvider>
     </div>
   );

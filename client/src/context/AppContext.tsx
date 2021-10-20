@@ -30,10 +30,8 @@ function AppContextProvider({ children }: AppContextProviderProps) {
 
   const methods = useForm<FormFields>({
     defaultValues: {
-      cashAndInvestments: netWorth.assets.cashAndInvestments,
-      longTermAssets: netWorth.assets.longTermAssets,
-      longTerm: netWorth.liabilities.longTerm,
-      shortTerm: netWorth.liabilities.shortTerm,
+      assets: netWorth.assets,
+      liabilities: netWorth.liabilities,
       currency: "cad",
     },
   });

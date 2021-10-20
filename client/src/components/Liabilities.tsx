@@ -1,24 +1,15 @@
-import React from "react";
 import { Liability } from "../types";
 import LineItems from "./LineItems";
 import { calculateTotalLiabilities } from "../utils";
+import { useFormContext } from "react-hook-form";
 
-interface Props {
-  liabilities: Liability;
-}
-const Liabilities = ({ liabilities }: Props) => {
+const Liabilities = () => {
+  const { watch } = useFormContext();
+  const liabilities = watch("liabilities");
   return (
     <div>
-      <LineItems
-        items={liabilities.shortTerm}
-        header="Short Term Liabilities"
-        name="shortTerm"
-      />
-      <LineItems
-        items={liabilities.longTerm}
-        header="Long Term Liabilities"
-        name="longTerm"
-      />
+      <LineItems header="Short Term Liabilities" name="liabilities.shortTerm" />
+      <LineItems header="Long Term Liabilities" name="liabilities.longTerm" />
       <TotalLiabilities liabilities={liabilities} />
     </div>
   );

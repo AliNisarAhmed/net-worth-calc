@@ -1,19 +1,18 @@
-import React from "react";
-import { LineItem } from "../types";
 import { useFormContext, useFieldArray } from "react-hook-form";
 
 interface Props {
-  items: LineItem[];
   header: string;
   name: string;
 }
 
-const LineItems = ({ items, header, name }: Props) => {
+const LineItems = ({ header, name }: Props) => {
   const { register, control } = useFormContext();
   const { fields } = useFieldArray({
     control,
     name,
   });
+
+console.log('fields', fields)
 
   return (
     <div>

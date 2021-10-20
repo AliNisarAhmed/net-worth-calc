@@ -1,25 +1,18 @@
-import React from "react";
 import { Asset } from "../types";
 import LineItems from "../components/LineItems";
 import { calculateTotalAssets } from "../utils";
+import { useFormContext } from "react-hook-form";
 
-interface Props {
-  assets: Asset;
-}
-
-const Assets = ({ assets }: Props) => {
+const Assets = () => {
+  const { watch } = useFormContext();
+  const assets = watch("assets");
   return (
     <div>
       <LineItems
-        items={assets.cashAndInvestments}
         header="Cash And Investments"
-        name="cashAndInvestments"
+        name="assets.cashAndInvestments"
       />
-      <LineItems
-        items={assets.longTermAssets}
-        header="Long Term Assets"
-        name="longTermAssets"
-      />
+      <LineItems header="Long Term Assets" name="assets.longTermAssets" />
       <TotalAssets assets={assets} />
     </div>
   );
