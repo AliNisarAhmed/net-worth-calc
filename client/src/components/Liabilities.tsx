@@ -2,6 +2,7 @@ import { Liability } from "../types";
 import LineItems from "./LineItems";
 import { calculateTotalLiabilities } from "../utils";
 import { useFormContext } from "react-hook-form";
+import NumberFormat from "react-number-format";
 
 const Liabilities = () => {
   const { watch } = useFormContext();
@@ -18,5 +19,20 @@ const Liabilities = () => {
 export default Liabilities;
 
 const TotalLiabilities = ({ liabilities }: { liabilities: Liability }) => {
-  return <div>Total Liabilities: {calculateTotalLiabilities(liabilities)}</div>;
+  return (
+    <div>
+      Total Liabilities:{" "}
+      <NumberFormat
+        defaultValue={0}
+        thousandSeparator=","
+        allowNegative={false}
+        allowLeadingZeros={false}
+        displayType="text"
+        type="text"
+        value={calculateTotalLiabilities(liabilities)}
+        decimalScale={2}
+        fixedDecimalScale
+      />
+    </div>
+  );
 };
