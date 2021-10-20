@@ -2,6 +2,7 @@ import React from "react";
 import { AppState, Action, Dispatch, FormFields } from "../types";
 import { data as netWorth } from "../data";
 import { useForm, FormProvider } from "react-hook-form";
+import { getItemFromLocalStorage } from "../localStorage";
 
 const AppContext = React.createContext<
   { state: AppState; dispatch: Dispatch } | undefined
@@ -25,15 +26,17 @@ const initialState: AppState = {
   netWorth,
 };
 
+const defaultFormValues = getItemFromLocalStorage<FormFields>() ?? {
+  assets: netWorth.assets,
+  liabilities: netWorth.liabilities,
+  currency: "cad",
+};
+
 function AppContextProvider({ children }: AppContextProviderProps) {
   const [state, dispatch] = React.useReducer(appStateReducer, initialState);
 
   const methods = useForm<FormFields>({
-    defaultValues: {
-      assets: netWorth.assets,
-      liabilities: netWorth.liabilities,
-      currency: "cad",
-    },
+    defaultValues: defaultFormValues,
   });
 
   const value = {
