@@ -33,4 +33,17 @@ export type FormFields = {
   longTermAssets: LineItem[];
   shortTerm: LineItem[];
   longTerm: LineItem[];
+  currency: CurrencyCode
 };
+
+export type CurrencyCode
+  = 'usd'
+  | 'cad'
+  | 'cny'
+  | 'eur'
+  | 'pkr'
+  | 'inr'
+  | 'gbp'
+  | 'aud'
+  | 'sgd'
+  | 'aed'

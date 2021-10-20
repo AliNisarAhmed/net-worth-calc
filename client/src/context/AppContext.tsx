@@ -34,6 +34,7 @@ function AppContextProvider({ children }: AppContextProviderProps) {
       longTermAssets: netWorth.assets.longTermAssets,
       longTerm: netWorth.liabilities.longTerm,
       shortTerm: netWorth.liabilities.shortTerm,
+      currency: "cad",
     },
   });
 
