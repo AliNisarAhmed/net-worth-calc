@@ -1,4 +1,5 @@
 import { useFormContext, useFieldArray } from "react-hook-form";
+import MoneyInput from "./MoneyInput";
 
 interface Props {
   header: string;
@@ -6,7 +7,7 @@ interface Props {
 }
 
 const LineItems = ({ header, name }: Props) => {
-  const { register, control } = useFormContext();
+  const { control } = useFormContext();
   const { fields } = useFieldArray({
     control,
     name,
@@ -19,11 +20,8 @@ const LineItems = ({ header, name }: Props) => {
         let displayedField = field as { id: string; label: string };
         return (
           <>
+            <MoneyInput control={control} name={`${name}.${index}.amount`} />
             <div>{displayedField.label}</div>
-            <input
-              key={field.id}
-              {...register(`${name}.${index}.amount`, { valueAsNumber: true })}
-            />
           </>
         );
       })}

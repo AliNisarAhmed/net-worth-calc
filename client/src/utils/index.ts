@@ -21,5 +21,5 @@ export function calculateNetWorth(
 }
 
 function sumLineItems(lineItems: LineItem[]): number {
-  return lineItems.reduce((acc, item) => item.amount + acc, 0);
+  return lineItems.reduce((acc, item) => Number(item.amount) + acc, 0);
 }

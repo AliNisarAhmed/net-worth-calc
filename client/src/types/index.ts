@@ -15,7 +15,7 @@ export interface Liability {
 
 export interface LineItem {
   label: string;
-  amount: number; // in 100 cents so $24 = 2400
+  amount: string;
 }
 
 export interface AppState {
