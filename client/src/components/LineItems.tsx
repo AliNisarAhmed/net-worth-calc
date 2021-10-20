@@ -12,17 +12,18 @@ const LineItems = ({ header, name }: Props) => {
     name,
   });
 
-console.log('fields', fields)
-
   return (
     <div>
       <h2>{header}</h2>
       {fields.map((field, index) => {
-        let displayedField = field as {id: string, label: string}
+        let displayedField = field as { id: string; label: string };
         return (
           <>
             <div>{displayedField.label}</div>
-            <input key={field.id} {...register(`${name}.${index}.amount`)} />
+            <input
+              key={field.id}
+              {...register(`${name}.${index}.amount`, { valueAsNumber: true })}
+            />
           </>
         );
       })}

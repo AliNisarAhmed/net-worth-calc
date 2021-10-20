@@ -1,5 +1,5 @@
 import { CurrencyCode } from "../types";
-import { useFormContext } from 'react-hook-form'
+import { useFormContext } from "react-hook-form";
 
 const currencies: CurrencyCode[] = [
   "usd",
@@ -15,11 +15,11 @@ const currencies: CurrencyCode[] = [
 ];
 
 const CurrencySelector = () => {
-  const {register} = useFormContext();
+  const { register } = useFormContext();
   return (
     <div>
       Select Currency:
-      <select {...register('currency')}>
+      <select {...register("currency")} disabled={true}>
         {currencies.map((currency) => (
           <option value={currency}>{currency}</option>
         ))}
