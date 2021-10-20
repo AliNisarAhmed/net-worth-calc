@@ -34,6 +34,7 @@ const MoneyInput = ({ control, name }: Props) => {
             isNumericString={true}
             decimalScale={2}
             onBlur={handleSubmit(handleOnBlur)}
+            fixedDecimalScale
           />
         );
       }}
