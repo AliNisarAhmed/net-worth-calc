@@ -1,6 +1,6 @@
 import { Asset } from "../types";
 import LineItems from "../components/LineItems";
-import { calculateTotalAssets } from "../utils";
+import { calculateTotalAssets, getCurrencySymbol } from "../utils";
 import { useFormContext } from "react-hook-form";
 import NumberFormat from "react-number-format";
 
@@ -28,13 +28,16 @@ const Assets = () => {
 export default Assets;
 
 const TotalAssets = ({ assets }: { assets: Asset }) => {
+  const { watch } = useFormContext();
+  const currency = watch('currency');
+
   return (
     <div className="border-t-4 border-b-4 border-black-600 border-double py-4">
       <p className="inline-block">Total Assets: </p>
       <NumberFormat
         defaultValue={0}
         thousandSeparator=","
-        prefix="$"
+        prefix={getCurrencySymbol(currency)}
         allowNegative={false}
         allowLeadingZeros={false}
         displayType="text"

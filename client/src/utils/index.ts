@@ -1,4 +1,5 @@
-import { Asset, Liability, LineItem } from "../types";
+import { strings } from "../strings";
+import { Asset, CurrencyCode, Liability, LineItem } from "../types";
 
 export function calculateTotalAssets(assets: Asset): number {
   return (
@@ -18,6 +19,10 @@ export function calculateNetWorth(
   liabilities: Liability
 ): number {
   return calculateTotalAssets(assets) - calculateTotalLiabilities(liabilities);
+}
+
+export function getCurrencySymbol(currency: CurrencyCode): string {
+  return strings.currencySymbols[currency];
 }
 
 function sumLineItems(lineItems: LineItem[]): number {

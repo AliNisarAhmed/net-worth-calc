@@ -40,27 +40,17 @@ export type FormFields = {
   currency: CurrencyCode;
 };
 
-export type CurrencyCode =
-  | "usd"
-  | "cad"
-  | "cny"
-  | "eur"
-  | "pkr"
-  | "inr"
-  | "gbp"
-  | "aud"
-  | "sgd"
-  | "aed";
-
-export const allCurrencies: CurrencyCode[] = [
+export const allCurrencies = [
   "usd",
   "cad",
   "cny",
   "eur",
-  "pkr",
+  "jpy",
   "inr",
   "gbp",
   "aud",
   "sgd",
   "aed",
-];
+] as const;
+
+export type CurrencyCode = typeof allCurrencies[number];

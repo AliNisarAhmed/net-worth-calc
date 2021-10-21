@@ -7,7 +7,7 @@ const CurrencySelector = () => {
   return (
     <div>
       Select Currency:
-      <select {...register("currency")} disabled={true}>
+      <select {...register("currency")}>
         {currencies.map((currency) => (
           <option key={currency} value={currency}>
             {strings.currencyLabels[currency]} ({currency.toUpperCase()})

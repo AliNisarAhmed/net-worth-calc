@@ -1,19 +1,21 @@
 import { useFormContext } from "react-hook-form";
 import NumberFormat from "react-number-format";
-import { calculateNetWorth } from "../utils";
+import { calculateNetWorth, getCurrencySymbol } from "../utils";
 
 const NetWorth = () => {
   const { watch } = useFormContext();
   const assets = watch("assets");
   const liabilities = watch("liabilities");
+  const currency = watch('currency');
   const netWorth = calculateNetWorth(assets, liabilities);
+
   return (
     <div className="my-4">
       <p className="inline-block">Net Worth: </p>
       <NumberFormat
         defaultValue={0}
         thousandSeparator=","
-        prefix="$"
+        prefix={getCurrencySymbol(currency)}
         allowNegative={false}
         allowLeadingZeros={false}
         displayType="text"

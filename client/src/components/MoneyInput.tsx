@@ -7,6 +7,7 @@ import {
 import NumberFormat from "react-number-format";
 import { FormFields } from "../types";
 import { storeItemInLocalStorage } from "../localStorage";
+import { getCurrencySymbol } from "../utils";
 
 interface Props {
   control: Control<FieldValues, Object>;
@@ -14,7 +15,8 @@ interface Props {
 }
 
 const MoneyInput = ({ control, name }: Props) => {
-  const { handleSubmit } = useFormContext();
+  const { handleSubmit, watch } = useFormContext();
+  const currency = watch('currency');
 
   return (
     <Controller
@@ -30,7 +32,7 @@ const MoneyInput = ({ control, name }: Props) => {
             value={field.value}
             displayType="input"
             type="text"
-            prefix="$ "
+            prefix={getCurrencySymbol(currency) + ' '}
             isNumericString={true}
             decimalScale={2}
             fixedDecimalScale
