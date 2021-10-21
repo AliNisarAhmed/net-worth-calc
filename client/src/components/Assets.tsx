@@ -3,6 +3,8 @@ import LineItems from "../components/LineItems";
 import { calculateTotalAssets, getCurrencySymbol } from "../utils";
 import { useFormContext } from "react-hook-form";
 import NumberFormat from "react-number-format";
+import MoneyText from "./MoneyText";
+import SummaryText from "./layout/SummaryText";
 
 const Assets = () => {
   const { watch } = useFormContext();
@@ -11,9 +13,7 @@ const Assets = () => {
   return (
     <div className="my-4">
       <div className="border-black-600 border-b-4 border-double">
-        <h2 className="text-xl text-green-500">
-          Assets
-        </h2>
+        <h2 className="text-xl text-green-500">Assets</h2>
       </div>
       <LineItems
         header="Cash And Investments"
@@ -29,10 +29,10 @@ export default Assets;
 
 const TotalAssets = ({ assets }: { assets: Asset }) => {
   const { watch } = useFormContext();
-  const currency = watch('currency');
+  const currency = watch("currency");
 
   return (
-    <div className="border-t-4 border-b-4 border-black-600 border-double py-4">
+    <SummaryText>
       <p className="inline-block">Total Assets: </p>
       <NumberFormat
         defaultValue={0}
@@ -42,11 +42,11 @@ const TotalAssets = ({ assets }: { assets: Asset }) => {
         allowLeadingZeros={false}
         displayType="text"
         type="text"
+        renderText={(val: string) => <MoneyText value={val} type="assets" />}
         value={calculateTotalAssets(assets)}
         decimalScale={2}
         fixedDecimalScale
-        className="ml-2 text-xl text-green-500"
       />
-    </div>
+    </SummaryText>
   );
 };

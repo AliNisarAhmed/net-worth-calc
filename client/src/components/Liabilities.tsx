@@ -3,6 +3,8 @@ import LineItems from "./LineItems";
 import { calculateTotalLiabilities, getCurrencySymbol } from "../utils";
 import { useFormContext } from "react-hook-form";
 import NumberFormat from "react-number-format";
+import MoneyText from "./MoneyText";
+import SummaryText from "./layout/SummaryText";
 
 const Liabilities = () => {
   const { watch } = useFormContext();
@@ -23,10 +25,10 @@ export default Liabilities;
 
 const TotalLiabilities = ({ liabilities }: { liabilities: Liability }) => {
   const { watch } = useFormContext();
-  const currency = watch('currency');
+  const currency = watch("currency");
 
   return (
-    <div className="border-t-4 border-b-4 border-black-600 border-double py-4">
+    <SummaryText>
       <p className="inline-block">Total Liabilities: </p>
       <NumberFormat
         defaultValue={0}
@@ -39,8 +41,10 @@ const TotalLiabilities = ({ liabilities }: { liabilities: Liability }) => {
         value={calculateTotalLiabilities(liabilities)}
         decimalScale={2}
         fixedDecimalScale
-        className="ml-2 text-xl text-red-500"
+        renderText={(val: string) => (
+          <MoneyText value={val} type="liabilities" />
+        )}
       />
-    </div>
+    </SummaryText>
   );
 };
