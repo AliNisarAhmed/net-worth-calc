@@ -19,7 +19,7 @@ export const assetSchema = yup.object().shape({
   longTermAssets: yup.array().of(lineItemSchema),
 });
 
-export const currencySchema = yup.string().required().oneOf(allCurrencies);
+export const currencySchema = yup.string().required().oneOf([...allCurrencies]);
 
 export const formSchema = yup.object().shape({
   assets: assetSchema,

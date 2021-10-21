@@ -1,12 +1,26 @@
+import React from "react";
 import { allCurrencies as currencies } from "../types";
-import { useFormContext } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 import { strings } from "../strings";
+import { saveCurrencyToLocalStorage } from "../localStorage";
 
 const CurrencySelector = () => {
-  const { register } = useFormContext();
+  const { register, control } = useFormContext();
+
+  // watch for changes to the currency field in the form
+  const currency = useWatch({
+    control,
+    name: "currency",
+  });
+
+  // Save the currency to local storage whenever it changes
+  React.useEffect(() => {
+    saveCurrencyToLocalStorage(currency);
+  }, [currency]);
+
   return (
     <div>
-      Select Currency:
+      <label>Select Currency: </label>
       <select {...register("currency")}>
         {currencies.map((currency) => (
           <option key={currency} value={currency}>
@@ -16,6 +30,7 @@ const CurrencySelector = () => {
       </select>
     </div>
   );
+
 };
 
 export default CurrencySelector;
