@@ -26,7 +26,7 @@ export const strings: Strings = {
     usd: "\u0024",
     aud: "\u0024",
     gbp: "\u00a3",
-    jpy: "\u0045",
+    jpy: "\u00a5",
     eur: "\u20ac",
     inr: "\u20a8",
     sgd: "S\u0024",
