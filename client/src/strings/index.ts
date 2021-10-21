@@ -8,6 +8,7 @@ type Strings = {
     [key in CurrencyCode]: string;
   };
 };
+
 export const strings: Strings = {
   currencyLabels: {
     usd: "US Dollar",
