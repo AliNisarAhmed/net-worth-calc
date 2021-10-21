@@ -4,7 +4,7 @@ import { data as netWorth } from "../data";
 import { useForm, FormProvider } from "react-hook-form";
 import { getItemFromLocalStorage } from "../localStorage";
 import { yupResolver } from '@hookform/resolvers/yup';
-import { netWorthSchema } from "../validation";
+import { formSchema } from "../validation";
 
 const AppContext = React.createContext<
   { state: AppState; dispatch: Dispatch } | undefined
@@ -34,12 +34,14 @@ const defaultFormValues = getItemFromLocalStorage<FormFields>() ?? {
   currency: "cad",
 };
 
+console.log('formValues: ', defaultFormValues);
+
 function AppContextProvider({ children }: AppContextProviderProps) {
   const [state, dispatch] = React.useReducer(appStateReducer, initialState);
 
   const methods = useForm<FormFields>({
     defaultValues: defaultFormValues,
-    resolver: yupResolver(netWorthSchema)
+    resolver: yupResolver(formSchema)
   });
 
   const value = {

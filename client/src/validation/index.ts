@@ -9,14 +9,20 @@ export const lineItemSchema = yup.object().shape({
   amount: yup.string().matches(moneyRegex),
 });
 
-export const liabilitySchema = yup.array().of(lineItemSchema);
+export const liabilitySchema = yup.object().shape({
+  shortTerm: yup.array().of(lineItemSchema),
+  longTerm: yup.array().of(lineItemSchema),
+});
 
-export const assetSchema = yup.array().of(lineItemSchema);
+export const assetSchema = yup.object().shape({
+  cashAndInvestments: yup.array().of(lineItemSchema),
+  longTermAssets: yup.array().of(lineItemSchema),
+});
 
-export const currencySchema = yup.string().required().oneOf(allCurrencies)
+export const currencySchema = yup.string().required().oneOf(allCurrencies);
 
-export const netWorthSchema = yup.object().shape({
+export const formSchema = yup.object().shape({
   assets: assetSchema,
   liabilities: liabilitySchema,
-  currency: currencySchema
+  currency: currencySchema,
 });
