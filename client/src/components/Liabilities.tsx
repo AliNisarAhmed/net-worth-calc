@@ -28,6 +28,7 @@ const TotalLiabilities = ({ liabilities }: { liabilities: Liability }) => {
       <NumberFormat
         defaultValue={0}
         thousandSeparator=","
+        prefix="$"
         allowNegative={false}
         allowLeadingZeros={false}
         displayType="text"

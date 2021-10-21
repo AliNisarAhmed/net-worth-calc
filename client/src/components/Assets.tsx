@@ -7,6 +7,7 @@ import NumberFormat from "react-number-format";
 const Assets = () => {
   const { watch } = useFormContext();
   const assets = watch("assets");
+
   return (
     <div className="my-4">
       <div className="border-black-600 border-b-4 border-double">
@@ -33,6 +34,7 @@ const TotalAssets = ({ assets }: { assets: Asset }) => {
       <NumberFormat
         defaultValue={0}
         thousandSeparator=","
+        prefix="$"
         allowNegative={false}
         allowLeadingZeros={false}
         displayType="text"
