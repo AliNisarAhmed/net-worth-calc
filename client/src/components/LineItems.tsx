@@ -14,15 +14,19 @@ const LineItems = ({ header, name }: Props) => {
   });
 
   return (
-    <div>
-      <h2>{header}</h2>
+    <div className="divide-y divide-black-900">
+      <h2 className="text-lg">{header}</h2>
       {fields.map((field, index) => {
         let displayedField = field as { id: string; label: string };
         return (
-          <>
-            <MoneyInput control={control} name={`${name}.${index}.amount`} />
-            <div>{displayedField.label}</div>
-          </>
+          <div key={index} className="flex flex-col items-center py-2">
+            <div className="flex flex-col items-start w-4/5">
+              <label className="block text-sm text-gray-600">
+                {displayedField.label}
+              </label>
+              <MoneyInput control={control} name={`${name}.${index}.amount`} />
+            </div>
+          </div>
         );
       })}
     </div>

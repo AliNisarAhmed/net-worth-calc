@@ -8,7 +8,12 @@ const Assets = () => {
   const { watch } = useFormContext();
   const assets = watch("assets");
   return (
-    <div>
+    <div className="my-4">
+      <div className="border-black-600 border-b-4 border-double">
+        <h2 className="text-xl text-green-500">
+          Assets
+        </h2>
+      </div>
       <LineItems
         header="Cash And Investments"
         name="assets.cashAndInvestments"
@@ -23,8 +28,8 @@ export default Assets;
 
 const TotalAssets = ({ assets }: { assets: Asset }) => {
   return (
-    <div>
-      Total Assets:{" "}
+    <div className="border-t-4 border-b-4 border-black-600 border-double py-4">
+      <p className="inline-block">Total Assets: </p>
       <NumberFormat
         defaultValue={0}
         thousandSeparator=","
@@ -35,6 +40,7 @@ const TotalAssets = ({ assets }: { assets: Asset }) => {
         value={calculateTotalAssets(assets)}
         decimalScale={2}
         fixedDecimalScale
+        className="ml-2 text-xl text-green-500"
       />
     </div>
   );

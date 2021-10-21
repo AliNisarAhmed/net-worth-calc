@@ -8,7 +8,10 @@ const Liabilities = () => {
   const { watch } = useFormContext();
   const liabilities = watch("liabilities");
   return (
-    <div>
+    <div className="my-4">
+      <div className="border-black-600 border-b-4 border-double">
+        <h2 className="text-xl text-red-500">Liabilities</h2>
+      </div>
       <LineItems header="Short Term Liabilities" name="liabilities.shortTerm" />
       <LineItems header="Long Term Liabilities" name="liabilities.longTerm" />
       <TotalLiabilities liabilities={liabilities} />
@@ -20,8 +23,8 @@ export default Liabilities;
 
 const TotalLiabilities = ({ liabilities }: { liabilities: Liability }) => {
   return (
-    <div>
-      Total Liabilities:{" "}
+    <div className="border-t-4 border-b-4 border-black-600 border-double py-4">
+      <p className="inline-block">Total Liabilities: </p>
       <NumberFormat
         defaultValue={0}
         thousandSeparator=","
@@ -32,6 +35,7 @@ const TotalLiabilities = ({ liabilities }: { liabilities: Liability }) => {
         value={calculateTotalLiabilities(liabilities)}
         decimalScale={2}
         fixedDecimalScale
+        className="ml-2 text-xl text-red-500"
       />
     </div>
   );

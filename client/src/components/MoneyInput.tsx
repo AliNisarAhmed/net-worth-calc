@@ -35,6 +35,7 @@ const MoneyInput = ({ control, name }: Props) => {
             decimalScale={2}
             fixedDecimalScale
             onBlur={handleSubmit(handleOnBlur)}
+            className={`px-5 py-2 outline-none rounded border-2 border-pink-500 hover:ring-2 focus:ring-2 ring-pink-500 max-w-lg ring-offset-pink-500`}
           />
         );
       }}

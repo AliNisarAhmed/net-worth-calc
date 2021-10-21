@@ -6,20 +6,24 @@ const NetWorth = () => {
   const { watch } = useFormContext();
   const assets = watch("assets");
   const liabilities = watch("liabilities");
-
+  const netWorth = calculateNetWorth(assets, liabilities);
   return (
-    <div>
-      Net Worth:{" "}
+    <div className="my-4">
+      <p className="inline-block">Net Worth: </p>
       <NumberFormat
         defaultValue={0}
         thousandSeparator=","
+        prefix="$"
         allowNegative={false}
         allowLeadingZeros={false}
         displayType="text"
         type="text"
-        value={calculateNetWorth(assets, liabilities)}
+        value={netWorth}
         decimalScale={2}
         fixedDecimalScale
+        className={`text-2xl ml-2 tracking-wider ${
+          Number(netWorth) > 0 ? "text-green-500" : "text-red-500"
+        }`}
       />
     </div>
   );

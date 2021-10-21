@@ -8,7 +8,9 @@ const CurrencySelector = () => {
       Select Currency:
       <select {...register("currency")} disabled={true}>
         {currencies.map((currency) => (
-          <option value={currency}>{currency}</option>
+          <option key={currency} value={currency}>
+            {currency}
+          </option>
         ))}
       </select>
     </div>

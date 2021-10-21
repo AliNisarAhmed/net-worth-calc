@@ -9,7 +9,7 @@ function App() {
   return (
     <Layout>
       <AppContextProvider>
-        <h1 className="text-3xl mb-2 text-center">Tracking your Net Worth</h1>
+        <h1 className="text-3xl">Tracking your Net Worth</h1>
         <CurrencySelector />
         <NetWorth />
         <Assets />
