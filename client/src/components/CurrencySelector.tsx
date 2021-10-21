@@ -1,5 +1,6 @@
 import { allCurrencies as currencies } from "../types";
 import { useFormContext } from "react-hook-form";
+import { strings } from "../strings";
 
 const CurrencySelector = () => {
   const { register } = useFormContext();
@@ -9,7 +10,7 @@ const CurrencySelector = () => {
       <select {...register("currency")} disabled={true}>
         {currencies.map((currency) => (
           <option key={currency} value={currency}>
-            {currency}
+            {strings.currencyLabels[currency]} ({currency.toUpperCase()})
           </option>
         ))}
       </select>
