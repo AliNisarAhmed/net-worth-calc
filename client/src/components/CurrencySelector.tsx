@@ -20,8 +20,8 @@ const CurrencySelector = () => {
 
   return (
     <div>
-      <label>Select Currency: </label>
-      <select {...register("currency")}>
+      <label className="text-sm">Select Currency: </label>
+      <select {...register("currency")} className="border-2 border-pink-500 py-2 mx-2 rounded-md">
         {currencies.map((currency) => (
           <option key={currency} value={currency}>
             {strings.currencyLabels[currency]} ({currency.toUpperCase()})
