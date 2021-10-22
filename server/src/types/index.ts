@@ -52,7 +52,7 @@ export interface AppState {
   netWorth: NetWorth;
 }
 
-export type NetWorthConvertRequest = {
+export type ConvertNetWorthRequest = {
   oldCurrency: CurrencyCode;
   newCurrency: CurrencyCode;
   netWorth: NetWorth;
