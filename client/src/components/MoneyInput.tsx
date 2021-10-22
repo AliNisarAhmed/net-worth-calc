@@ -16,7 +16,7 @@ interface Props {
 
 const MoneyInput = ({ control, name }: Props) => {
   const { handleSubmit, watch } = useFormContext();
-  const currency = watch('currency');
+  const currency = watch("currency");
 
   return (
     <Controller
@@ -32,12 +32,24 @@ const MoneyInput = ({ control, name }: Props) => {
             value={field.value}
             displayType="input"
             type="text"
-            prefix={getCurrencySymbol(currency) + ' '}
+            prefix={getCurrencySymbol(currency) + " "}
             isNumericString={true}
             decimalScale={2}
             fixedDecimalScale
             onBlur={handleSubmit(handleOnBlur)}
-            className={`px-5 py-2 outline-none rounded border-2 border-pink-500 hover:ring-2 focus:ring-2 ring-pink-500 max-w-lg w-full ring-offset-pink-500`}
+            className={`
+              px-5 py-2 
+              outline-none 
+              rounded border-2 border-pink-500 
+              hover:ring-2 focus:ring-2 
+              ring-pink-500 
+              ring-offset-pink-500 
+              sm:max-w-md
+              sm:w-md
+              lg:max-w-sm 
+              lg:text-xl
+              lg:text-right
+              `}
           />
         );
       }}

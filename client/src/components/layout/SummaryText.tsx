@@ -5,16 +5,33 @@ function SummaryText({ children }: Props) {
   return (
     <div
       className="
-      relative 
+      sm:absolute
+      lg:relative
       inline-block 
       w-full
       h-24
-      min-w-full max-w-full 
       border-t-4 border-b-4 border-black-600 border-double 
       py-4 
-      overflow-x-auto"
+      my-4
+      flex
+      justify-center
+      lg:h-22
+      "
     >
-      {children}
+      <div
+        className="
+        w-full
+        lg:w-10/12
+        lg:flex
+        lg:flex-row
+        lg:justify-end
+        lg:items-baseline
+        overflow-auto
+        h-24
+      "
+      >
+        {children}
+      </div>
     </div>
   );
 }

@@ -19,7 +19,7 @@ const CurrencySelector = () => {
   }, [currency]);
 
   return (
-    <div>
+    <div className="lg:flex lg:flex-row lg:justify-end lg:items-baseline">
       <label className="text-sm">Select Currency: </label>
       <select {...register("currency")} className="border-2 border-pink-500 py-2 mx-2 rounded-md">
         {currencies.map((currency) => (

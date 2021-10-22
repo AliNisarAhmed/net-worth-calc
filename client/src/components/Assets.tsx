@@ -12,8 +12,8 @@ const Assets = () => {
 
   return (
     <div className="my-4">
-      <div className="border-black-600 border-b-4 border-double">
-        <h2 className="text-xl text-green-500">Assets</h2>
+      <div className="border-black-700 border-b-4 border-double">
+        <h2 className="text-2xl text-green-500 mb-2">Assets</h2>
       </div>
       <LineItems
         header="Cash And Investments"
@@ -33,7 +33,15 @@ const TotalAssets = ({ assets }: { assets: Asset }) => {
 
   return (
     <SummaryText>
-      <p className="inline-block">Total Assets: </p>
+      <p
+        className="
+        inline-block
+        lg:text-xl
+        lg:mr-4
+      "
+      >
+        Total Assets:{" "}
+      </p>
       <NumberFormat
         defaultValue={0}
         thousandSeparator=","

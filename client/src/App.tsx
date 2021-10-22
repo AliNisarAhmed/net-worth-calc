@@ -3,7 +3,7 @@ import Liabilities from "./components/Liabilities";
 import { AppContextProvider } from "./context/AppContext";
 import CurrencySelector from "./components/CurrencySelector";
 import NetWorth from "./components/NetWorth";
-import Layout from "./components/Layout";
+import Layout from "./components/layout/MainLayout";
 
 function App() {
   return (
