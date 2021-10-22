@@ -8,30 +8,15 @@ import {
 } from "../types";
 
 export const sampleResponse: CurrencyAPIResponse = {
-  meta: {
-    code: 200,
-    disclaimer: "Usage subject to terms: https://currencyscoop.com/terms",
-  },
-  response: {
-    date: "2021-10-22T00:12:51Z",
-    base: "USD",
-    rates: {
-      AED: 3.6725,
-      CAD: 1.23691041,
-      AUD: 1.33980474,
-      CNY: 6.39533017,
-      EUR: 0.86016364,
-      GBP: 0.72502779,
-      INR: 74.86699133,
-      JPY: 113.84019258,
-      SGD: 1.3468343,
-      USD: 1,
-    },
-  },
+  date: "2021-10-21",
+  [CurrencyCode.CAD]: 1.231841,
 };
 
-export function getRate(currency: CurrencyCode, apiResponse: CurrencyAPIResponse): number {
-  return apiResponse.response.rates[currency];
+export function getRate(
+  currency: CurrencyCode,
+  apiResponse: CurrencyAPIResponse
+): number {
+  return apiResponse[currency];
 }
 
 export function convertNetWorth(nw: NetWorth, rate: number): NetWorth {

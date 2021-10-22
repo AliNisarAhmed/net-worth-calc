@@ -1,44 +1,32 @@
 export const allCurrencies = [
-  "USD",
-  "CAD",
-  "CNY",
-  "EUR",
-  "JPY",
-  "INR",
-  "GBP",
-  "AUD",
-  "SGD",
-  "AED",
+  "usd",
+  "cad",
+  "cny",
+  "eur",
+  "jpy",
+  "inr",
+  "gbp",
+  "aud",
+  "sgd",
+  "aed",
 ];
 
 export enum CurrencyCode {
-  USD = "USD",
-  CAD = "CAD",
-  CNY = "CNY",
-  EUR = "EUR",
-  JPY = "JPY",
-  INR = "INR",
-  GBP = "GBP",
-  AUD = "AUD",
-  SGD = "SGD",
-  AED = "AED",
+  USD = "usd",
+  CAD = "cad",
+  CNY = "cny",
+  EUR = "eur",
+  JPY = "jpy",
+  INR = "int",
+  GBP = "gbp",
+  AUD = "aud",
+  SGD = "sgd",
+  AED = "aed",
 }
 
-// export type CurrencyCode = typeof allCurrencies[number];
 
-export type CurrencyAPIResponse = {
-  meta: {
-    code: number;
-    disclaimer: string;
-  };
-  response: {
-    date: string;
-    base: string;
-    rates: {
-      [key in CurrencyCode]: number;
-    };
-  };
-};
+// combining two types/objects: {date: string} with enum object
+export type CurrencyAPIResponse = Partial<Record<CurrencyCode, number>> & {date: string}
 
 export interface NetWorth {
   assets: Asset;

@@ -4,7 +4,7 @@ import netWorthRouter from "./routes/networth";
 export default () => {
   const app = express();
   app.use(express.json());
-  app.use(netWorthRouter)
+  app.use("/api", netWorthRouter)
 
   return app;
 };
