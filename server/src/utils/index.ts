@@ -19,7 +19,15 @@ import {
   EUR,
   Currency,
 } from "@dinero.js/currencies";
-import { convert, dinero, toSnapshot, toUnit, halfEven, down } from "dinero.js";
+import {
+  convert,
+  dinero,
+  toSnapshot,
+  toUnit,
+  halfEven,
+  down,
+  Dinero,
+} from "dinero.js";
 
 export const currencyMap: Record<CurrencyCode, Currency<number>> = {
   [CurrencyCode.AED]: AED,
@@ -71,32 +79,27 @@ export function convertAssets(asset: Asset, args: ConvertLineItemArgs): Asset {
 }
 
 export type ConvertLineItemArgs = {
-  rate: Rate;
+  scaledRate: NumberWithScale;
   newCurrency: Currency<number>;
   oldCurrency: Currency<number>;
 };
 export function convertLineItem(
   item: LineItem,
-  { rate, newCurrency, oldCurrency }: ConvertLineItemArgs
+  { scaledRate, newCurrency, oldCurrency }: ConvertLineItemArgs
 ): LineItem {
-  let amountNumber = roundToTwoDecimalPlaces(Number(item.amount) * 100);
+  const amountDinero = numberToDinero(item.amount, oldCurrency);
 
-  console.log("amountNumber", amountNumber);
-
-  let amountD = dinero({
-    amount: amountNumber,
-    currency: oldCurrency,
-  });
-
-  console.log("Amount Dinero: ", toSnapshot(amountD));
+  console.log("Amount Dinero: ", toSnapshot(amountDinero));
 
   let rates = {
-    [newCurrency.code]: rate,
+    [newCurrency.code]: scaledRate,
   };
 
   console.log("Rates: ", rates);
 
-  let converted = convert(amountD, newCurrency, rates);
+  let converted = convert(amountDinero, newCurrency, rates);
+
+  console.log("Converted: ", toSnapshot(converted));
 
   return {
     ...item,
@@ -104,24 +107,25 @@ export function convertLineItem(
   };
 }
 
-export function roundToTwoDecimalPlaces(n: number): number {
-  return Math.round((n + Number.EPSILON) * 100) / 100;
-}
+// export function roundToTwoDecimalPlaces(n: number): number {
+//   return Math.round((n + Number.EPSILON) * 100) / 100;
+// }
 
-export type Rate = {
+export type NumberWithScale = {
   amount: number;
   scale: number;
 };
 
-// e.g. floatToRate(1.2345) -> { amount: 12345, scale: 4 }
-export function floatToRate(n: number): Rate {
-  const str = String(n);
-
-  if (str.startsWith("0.")) {
-    let rem = str.slice(2);
+// e.g. getNumeberWithScale(1.2345) -> { amount: 12345, scale: 4 }
+export function getNumberWithScale(n: string | number): NumberWithScale {
+  if (typeof n === "number") {
+    n = String(n);
+  }
+  if (n.startsWith("0.")) {
+    let rem = n.slice(2);
     return { amount: Number(rem), scale: rem.length };
   } else {
-    let [preDecimal, postDecimal] = str.split(".");
+    let [preDecimal, postDecimal] = n.split(".");
     if (postDecimal === undefined) {
       return { amount: Number(preDecimal), scale: 0 };
     } else {
@@ -131,4 +135,17 @@ export function floatToRate(n: number): Rate {
       };
     }
   }
+}
+
+export function numberToDinero(
+  n: string,
+  currency: Currency<number>
+): Dinero<number> {
+  let numberWithScale = getNumberWithScale(n);
+
+  return dinero({
+    amount: numberWithScale.amount,
+    scale: numberWithScale.scale,
+    currency: currency,
+  });
 }
