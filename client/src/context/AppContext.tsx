@@ -16,29 +16,33 @@ const AppContext = React.createContext<
 
 type AppContextProviderProps = { children: React.ReactNode };
 
-const initialState: AppState = {
+const initialFormState: FormFields = {
   netWorth: data.netWorth,
   assets: data.assets,
   liabilities: data.liabilities,
   currency: "cad",
 };
 
-const defaultFormValues = getItemFromLocalStorage<FormFields>() ?? initialState;
+const defaultFormValues =
+  getItemFromLocalStorage<FormFields>() ?? initialFormState;
+
+const initialState: AppState = {
+  formState: defaultFormValues,
+  isLoading: false,
+};
 
 function AppContextProvider({ children }: AppContextProviderProps) {
-  const [state, dispatch] = React.useReducer(
-    appStateReducer,
-    defaultFormValues
-  );
+  const [state, dispatch] = React.useReducer(appStateReducer, initialState);
 
   const methods = useForm<FormFields>({
-    defaultValues: state,
+    defaultValues: state.formState,
     resolver: yupResolver(formSchema),
   });
 
+  // This effect is used to update the form state after response from the server
   React.useEffect(() => {
-    storeItemInLocalStorage<AppState>(state);
-    methods.reset(state);
+    storeItemInLocalStorage<FormFields>(state.formState);
+    methods.reset(state.formState);
   }, [methods, state]);
 
   const value = {

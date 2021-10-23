@@ -10,16 +10,22 @@ export function appStateReducer(state: AppState, action: Action): AppState {
   switch (action.type) {
     case "UPDATE_NET_WORTH":
       return {
-        netWorth: "999.99",
-        assets: action.payload.assets,
-        liabilities: action.payload.liabilities,
-        currency: action.payload.currency,
+        isLoading: false,
+        formState: {
+          netWorth: action.payload.netWorth,
+          assets: action.payload.assets,
+          liabilities: action.payload.liabilities,
+          currency: action.payload.currency,
+        },
       };
 
     case "NET_WORTH_CALCULATION_RESULT":
       return {
-        ...action.payload,
-        currency: state.currency,
+        ...state,
+        formState: {
+          ...action.payload,
+          currency: state.formState.currency,
+        },
       };
 
     default:

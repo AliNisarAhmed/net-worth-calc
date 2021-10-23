@@ -42,13 +42,14 @@ const CurrencySelector = () => {
     const oldCurrency = getValues("currency");
     const oldAssets = getValues("assets");
     const oldLiabs = getValues("liabilities");
+    const oldNetWorth = getValues("netWorth");
 
     try {
-      const { assets, liabilities } = await API.convertNetWorth({
+      const { assets, liabilities, netWorth } = await API.convertNetWorth({
         oldCurrency,
         newCurrency,
         netWorth: {
-          netWorth: "999.99",
+          netWorth: oldNetWorth,
           assets: oldAssets,
           liabilities: oldLiabs,
         },
@@ -57,6 +58,7 @@ const CurrencySelector = () => {
       dispatch({
         type: "UPDATE_NET_WORTH",
         payload: {
+          netWorth,
           assets,
           liabilities,
           currency: newCurrency,
