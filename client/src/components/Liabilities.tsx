@@ -11,7 +11,13 @@ const Liabilities = () => {
   const liabilities = watch("liabilities");
   return (
     <div className="mt-12">
-      <div className="border-black-600 border-b-4 border-double">
+      <div
+        className="
+        border-black-600 
+        border-b-4 
+        border-double
+        "
+      >
         <h2 className="text-2xl text-red-500">Liabilities</h2>
       </div>
       <LineItems header="Short Term Liabilities" name="liabilities.shortTerm" />

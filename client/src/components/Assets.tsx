@@ -12,8 +12,22 @@ const Assets = () => {
 
   return (
     <div className="my-4">
-      <div className="border-black-700 border-b-4 border-double">
-        <h2 className="text-2xl text-green-500 mb-2">Assets</h2>
+      <div
+        className="
+        border-black-700 
+        border-b-4 
+        border-double
+        "
+      >
+        <h2
+          className="
+          text-2xl 
+          text-green-500 
+          mb-2
+          "
+        >
+          Assets
+        </h2>
       </div>
       <LineItems
         header="Cash And Investments"

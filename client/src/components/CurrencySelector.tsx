@@ -9,12 +9,24 @@ const CurrencySelector = () => {
   const { dispatch } = useAppContext();
 
   return (
-    <div className="lg:flex lg:flex-row lg:justify-end lg:items-baseline">
+    <div
+      className="
+      lg:flex 
+      lg:flex-row 
+      lg:justify-end 
+      lg:items-baseline
+    "
+    >
       <label className="text-sm">Select Currency: </label>
       <select
         {...register("currency")}
         onChange={handleCurrencyChange}
-        className="border-2 border-pink-500 py-2 mx-2 rounded-md"
+        className="
+          border-2 
+          border-pink-500 
+          py-2 mx-2 
+          rounded-md
+        "
       >
         {currencies.map((currency) => (
           <option key={currency} value={currency}>
