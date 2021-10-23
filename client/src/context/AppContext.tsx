@@ -1,5 +1,5 @@
 import React from "react";
-import { AppState, Action, Dispatch, FormFields } from "../types";
+import { AppState, FormFields } from "../types";
 import { data } from "../data";
 import { useForm, FormProvider } from "react-hook-form";
 import {
@@ -8,33 +8,13 @@ import {
 } from "../localStorage";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { formSchema } from "../validation";
+import { appStateReducer, Dispatch } from "./reducer";
 
 const AppContext = React.createContext<
   { state: AppState; dispatch: Dispatch } | undefined
 >(undefined);
 
 type AppContextProviderProps = { children: React.ReactNode };
-
-function appStateReducer(state: AppState, action: Action): AppState {
-  switch (action.type) {
-    case "UPDATE_NET_WORTH":
-      return {
-        netWorth: "999.99",
-        assets: action.payload.assets,
-        liabilities: action.payload.liabilities,
-        currency: action.payload.currency,
-      };
-
-    case "NET_WORTH_CALCULATION_RESULT":
-      return {
-        ...action.payload,
-        currency: state.currency,
-      };
-
-    default:
-      return state;
-  }
-}
 
 const initialState: AppState = {
   netWorth: data.netWorth,

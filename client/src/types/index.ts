@@ -1,3 +1,5 @@
+// --------------------------- DOMAIN -------------------------------
+
 export interface NetWorth {
   netWorth: string;
   assets: Asset;
@@ -19,32 +21,6 @@ export interface LineItem {
   amount: string;
 }
 
-export interface AppState {
-  netWorth: string;
-  assets: Asset;
-  liabilities: Liability;
-  currency: CurrencyCode;
-}
-
-export type Action = { type: ActionType; payload: any };
-
-export type ActionType = "UPDATE_NET_WORTH" | "NET_WORTH_CALCULATION_RESULT";
-
-export type Dispatch = (action: Action) => void;
-
-export type FormFields = {
-  netWorth: string;
-  assets: {
-    cashAndInvestments: LineItem[];
-    longTermAssets: LineItem[];
-  };
-  liabilities: {
-    shortTerm: LineItem[];
-    longTerm: LineItem[];
-  };
-  currency: CurrencyCode;
-};
-
 export const allCurrencies = [
   "usd",
   "cad",
@@ -59,6 +35,28 @@ export const allCurrencies = [
 ] as const;
 
 export type CurrencyCode = typeof allCurrencies[number];
+
+// --------------------------- APP -------------------------------
+
+export interface AppState {
+  netWorth: string;
+  assets: Asset;
+  liabilities: Liability;
+  currency: CurrencyCode;
+}
+
+export type FormFields = {
+  netWorth: string;
+  assets: {
+    cashAndInvestments: LineItem[];
+    longTermAssets: LineItem[];
+  };
+  liabilities: {
+    shortTerm: LineItem[];
+    longTerm: LineItem[];
+  };
+  currency: CurrencyCode;
+};
 
 // -------------------------  REQUEST AND RESPONSE ----------------------
 
