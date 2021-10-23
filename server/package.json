@@ -10,10 +10,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@dinero.js/currencies": "^2.0.0-alpha.8",
     "@types/cors": "^2.8.12",
     "@types/jest": "^27.0.2",
     "axios": "^0.23.0",
     "cors": "^2.8.5",
+    "dinero.js": "^2.0.0-alpha.8",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "jest": "^27.3.1"

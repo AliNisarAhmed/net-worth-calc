@@ -1,7 +1,8 @@
 import express, { Request, Response } from "express";
-import { convertNetWorth } from "../utils";
+import { convertNetWorth, floatToRate } from "../utils";
 import { ConvertNetWorthRequest } from "../types";
 import { getRateFromApi } from "../api";
+import { currencyMap } from "../utils";
 
 const router = express.Router();
 
@@ -13,7 +14,13 @@ router.post("/networth", async (req: Request, res: Response) => {
 
   const apiResponse = await getRateFromApi(oldCurrency, newCurrency);
 
-  const newNetWorth = convertNetWorth(netWorth, apiResponse[newCurrency]);
+  console.log("API response: ", apiResponse);
+
+  const newNetWorth = convertNetWorth(netWorth, {
+    rate: floatToRate(apiResponse[newCurrency]),
+    newCurrency: currencyMap[newCurrency],
+    oldCurrency: currencyMap[oldCurrency],
+  });
 
   console.log(JSON.stringify(newNetWorth, null, 2));
 
