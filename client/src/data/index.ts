@@ -1,37 +1,38 @@
 import { NetWorth } from "../types";
 
 export const data: NetWorth = {
+  netWorth: "1000",
   assets: {
     cashAndInvestments: [
-      { label: "Chequing", amount: "2000" },
-      { label: "Saving For Taxes", amount: "4000" },
-      { label: "Rainy Day Fund", amount: "6000" },
-      { label: "Savings for Fun", amount: "5000" },
-      { label: "Savings for Travel", amount: "400" },
+      { label: "Chequing", amount: "500.00" },
+      { label: "Saving For Taxes", amount: "500" },
+      { label: "Rainy Day Fund", amount: "0" },
+      { label: "Savings for Fun", amount: "0" },
+      { label: "Savings for Travel", amount: "0" },
       {
         label: "Savings for Personal Development",
-        amount: "2000",
+        amount: "0",
       },
-      { label: "Investment 1", amount: "4000" },
-      { label: "Investment 2", amount: "5000" },
-      { label: "Investment 3", amount: "4000" },
+      { label: "Investment 1", amount: "0" },
+      { label: "Investment 2", amount: "0" },
+      { label: "Investment 3", amount: "0" },
     ],
     longTermAssets: [
-      { label: "Primary Home", amount: "2000" },
-      { label: "Secondary Home", amount: "2000" },
-      { label: "Other", amount: "2000" },
+      { label: "Primary Home", amount: "500" },
+      { label: "Secondary Home", amount: "500" },
+      { label: "Other", amount: "0" },
     ],
   },
   liabilities: {
     shortTerm: [
-      { label: "Credit Card 1", amount: "2000" },
-      { label: "Credit Card 2", amount: "2000" },
+      { label: "Credit Card 1", amount: "500" },
+      { label: "Credit Card 2", amount: "0" },
     ],
     longTerm: [
-      { label: "Mortgage 1", amount: "2000" },
-      { label: "Mortgage 2", amount: "2000" },
-      { label: "Line of Credit", amount: "2000" },
-      { label: "Investment Load", amount: "2000" },
+      { label: "Mortgage 1", amount: "500" },
+      { label: "Mortgage 2", amount: "0" },
+      { label: "Line of Credit", amount: "0" },
+      { label: "Investment Load", amount: "0" },
     ],
   },
 };

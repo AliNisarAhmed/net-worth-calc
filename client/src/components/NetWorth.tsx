@@ -1,14 +1,12 @@
 import { useFormContext } from "react-hook-form";
 import NumberFormat, { NumberFormatProps } from "react-number-format";
-import { calculateNetWorth, getCurrencySymbol } from "../utils";
+import { getCurrencySymbol } from "../utils";
 import MoneyText from "./MoneyText";
 
 const NetWorth = () => {
   const { watch } = useFormContext();
-  const assets = watch("assets");
-  const liabilities = watch("liabilities");
   const currency = watch("currency");
-  const netWorth = calculateNetWorth(assets, liabilities);
+  const netWorth = watch('netWorth') 
 
   return (
     <div

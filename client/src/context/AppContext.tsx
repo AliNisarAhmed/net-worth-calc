@@ -1,6 +1,6 @@
 import React from "react";
 import { AppState, Action, Dispatch, FormFields } from "../types";
-import { data as netWorth } from "../data";
+import { data } from "../data";
 import { useForm, FormProvider } from "react-hook-form";
 import {
   getItemFromLocalStorage,
@@ -19,6 +19,7 @@ function appStateReducer(state: AppState, action: Action): AppState {
   switch (action.type) {
     case "UPDATE_NET_WORTH":
       return {
+        netWorth: "999.99",
         assets: action.payload.assets,
         liabilities: action.payload.liabilities,
         currency: action.payload.currency,
@@ -30,8 +31,9 @@ function appStateReducer(state: AppState, action: Action): AppState {
 }
 
 const initialState: AppState = {
-  assets: netWorth.assets,
-  liabilities: netWorth.liabilities,
+  netWorth: data.netWorth,
+  assets: data.assets,
+  liabilities: data.liabilities,
   currency: "cad",
 };
 

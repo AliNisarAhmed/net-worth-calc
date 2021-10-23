@@ -48,6 +48,7 @@ const CurrencySelector = () => {
         oldCurrency,
         newCurrency,
         netWorth: {
+          netWorth: "999.99",
           assets: oldAssets,
           liabilities: oldLiabs,
         },

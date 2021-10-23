@@ -1,4 +1,5 @@
 export interface NetWorth {
+  netWorth: string;
   assets: Asset;
   liabilities: Liability;
 }
@@ -19,6 +20,7 @@ export interface LineItem {
 }
 
 export interface AppState {
+  netWorth: string;
   assets: Asset;
   liabilities: Liability;
   currency: CurrencyCode;
@@ -31,6 +33,7 @@ export type ActionType = "UPDATE_NET_WORTH";
 export type Dispatch = (action: Action) => void;
 
 export type FormFields = {
+  netWorth: string;
   assets: {
     cashAndInvestments: LineItem[];
     longTermAssets: LineItem[];
