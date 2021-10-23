@@ -32,6 +32,6 @@ export const strings: Strings = {
     inr: "\u20a8",
     sgd: "S\u0024",
     aed: "DH",
-    cny: "\u5143",
+    cny: "\u00a5",
   },
 };
