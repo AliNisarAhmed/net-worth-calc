@@ -25,6 +25,12 @@ function appStateReducer(state: AppState, action: Action): AppState {
         currency: action.payload.currency,
       };
 
+    case "NET_WORTH_CALCULATION_RESULT":
+      return {
+        ...action.payload,
+        currency: state.currency,
+      };
+
     default:
       return state;
   }

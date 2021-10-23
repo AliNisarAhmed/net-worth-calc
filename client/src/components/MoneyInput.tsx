@@ -8,6 +8,8 @@ import NumberFormat from "react-number-format";
 import { FormFields } from "../types";
 import { storeItemInLocalStorage } from "../localStorage";
 import { getCurrencySymbol } from "../utils";
+import * as API from "../api";
+import { useAppContext } from "../context/AppContext";
 
 interface Props {
   control: Control<FieldValues, Object>;
@@ -16,11 +18,14 @@ interface Props {
 
 const MoneyInput = ({ control, name }: Props) => {
   const { handleSubmit, watch } = useFormContext();
+  const { dispatch } = useAppContext();
+
   const currency = watch("currency");
 
   return (
     <Controller
       control={control}
+      name={name}
       render={({ field }) => {
         return (
           <NumberFormat
@@ -53,11 +58,25 @@ const MoneyInput = ({ control, name }: Props) => {
           />
         );
       }}
-      name={name}
     />
   );
 
-  function handleOnBlur(data: FormFields) {
+  async function handleOnBlur(data: FormFields) {
+    const res = await API.calculateNetWorthOnServer({
+      assets: data.assets,
+      liabilities: data.liabilities,
+      currency: data.currency,
+    });
+
+    dispatch({
+      type: "NET_WORTH_CALCULATION_RESULT",
+      payload: {
+        ...data,
+        netWorth: res.netWorth,
+      },
+    });
+
+    console.log("Response from server: ", res);
     storeItemInLocalStorage<FormFields>(data);
   }
 };

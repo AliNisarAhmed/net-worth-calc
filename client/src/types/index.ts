@@ -28,7 +28,7 @@ export interface AppState {
 
 export type Action = { type: ActionType; payload: any };
 
-export type ActionType = "UPDATE_NET_WORTH";
+export type ActionType = "UPDATE_NET_WORTH" | "NET_WORTH_CALCULATION_RESULT";
 
 export type Dispatch = (action: Action) => void;
 
@@ -66,4 +66,14 @@ export interface ConvertNetWorthRequest {
   newCurrency: string;
   oldCurrency: string;
   netWorth: NetWorth;
+}
+
+export interface CalculateNetWorthRequest {
+  assets: Asset;
+  liabilities: Liability;
+  currency: CurrencyCode;
+}
+
+export interface NetWorthCalculationResponse {
+  netWorth: string;
 }
