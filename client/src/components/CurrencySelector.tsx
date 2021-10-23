@@ -1,27 +1,21 @@
-import React from "react";
 import { allCurrencies as currencies } from "../types";
-import { useFormContext, useWatch } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { strings } from "../strings";
-import { saveCurrencyToLocalStorage } from "../localStorage";
+import * as API from "../api";
+import { useAppContext } from "../context/AppContext";
 
 const CurrencySelector = () => {
-  const { register, control } = useFormContext();
-
-  // watch for changes to the currency field in the form
-  const currency = useWatch({
-    control,
-    name: "currency",
-  });
-
-  // Save the currency to local storage whenever it changes
-  React.useEffect(() => {
-    saveCurrencyToLocalStorage(currency);
-  }, [currency]);
+  const { register, getValues } = useFormContext();
+  const { dispatch } = useAppContext();
 
   return (
     <div className="lg:flex lg:flex-row lg:justify-end lg:items-baseline">
       <label className="text-sm">Select Currency: </label>
-      <select {...register("currency")} className="border-2 border-pink-500 py-2 mx-2 rounded-md">
+      <select
+        {...register("currency")}
+        onChange={handleCurrencyChange}
+        className="border-2 border-pink-500 py-2 mx-2 rounded-md"
+      >
         {currencies.map((currency) => (
           <option key={currency} value={currency}>
             {strings.currencyLabels[currency]} ({currency.toUpperCase()})
@@ -31,6 +25,32 @@ const CurrencySelector = () => {
     </div>
   );
 
+  async function handleCurrencyChange(e: any) {
+    const newCurrency = e.target.value;
+    const oldCurrency = getValues("currency");
+    const oldAssets = getValues("assets");
+    const oldLiabs = getValues("liabilities");
+
+    try {
+      const { assets, liabilities } = await API.convertNetWorth({
+        oldCurrency,
+        newCurrency,
+        netWorth: {
+          assets: oldAssets,
+          liabilities: oldLiabs,
+        },
+      });
+
+      dispatch({
+        type: "UPDATE_NET_WORTH",
+        payload: {
+          assets,
+          liabilities,
+          currency: newCurrency,
+        },
+      });
+    } catch (e) {}
+  }
 };
 
 export default CurrencySelector;

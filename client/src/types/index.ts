@@ -19,12 +19,14 @@ export interface LineItem {
 }
 
 export interface AppState {
-  netWorth: NetWorth;
+  assets: Asset;
+  liabilities: Liability;
+  currency: CurrencyCode;
 }
 
 export type Action = { type: ActionType; payload: any };
 
-export type ActionType = "InputFieldChanged";
+export type ActionType = "UPDATE_NET_WORTH";
 
 export type Dispatch = (action: Action) => void;
 
@@ -54,3 +56,11 @@ export const allCurrencies = [
 ] as const;
 
 export type CurrencyCode = typeof allCurrencies[number];
+
+// -------------------------  REQUEST AND RESPONSE ----------------------
+
+export interface ConvertNetWorthRequest {
+  newCurrency: string;
+  oldCurrency: string;
+  netWorth: NetWorth;
+}

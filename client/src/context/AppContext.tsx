@@ -2,8 +2,11 @@ import React from "react";
 import { AppState, Action, Dispatch, FormFields } from "../types";
 import { data as netWorth } from "../data";
 import { useForm, FormProvider } from "react-hook-form";
-import { getItemFromLocalStorage } from "../localStorage";
-import { yupResolver } from '@hookform/resolvers/yup';
+import {
+  getItemFromLocalStorage,
+  storeItemInLocalStorage,
+} from "../localStorage";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { formSchema } from "../validation";
 
 const AppContext = React.createContext<
@@ -14,10 +17,12 @@ type AppContextProviderProps = { children: React.ReactNode };
 
 function appStateReducer(state: AppState, action: Action): AppState {
   switch (action.type) {
-    case "InputFieldChanged":
-      // TODO
-      console.log("Input field changed");
-      return state;
+    case "UPDATE_NET_WORTH":
+      return {
+        assets: action.payload.assets,
+        liabilities: action.payload.liabilities,
+        currency: action.payload.currency,
+      };
 
     default:
       return state;
@@ -25,24 +30,28 @@ function appStateReducer(state: AppState, action: Action): AppState {
 }
 
 const initialState: AppState = {
-  netWorth,
-};
-
-const defaultFormValues = getItemFromLocalStorage<FormFields>() ?? {
   assets: netWorth.assets,
   liabilities: netWorth.liabilities,
   currency: "cad",
 };
 
-console.log('formValues: ', defaultFormValues);
+const defaultFormValues = getItemFromLocalStorage<FormFields>() ?? initialState;
 
 function AppContextProvider({ children }: AppContextProviderProps) {
-  const [state, dispatch] = React.useReducer(appStateReducer, initialState);
+  const [state, dispatch] = React.useReducer(
+    appStateReducer,
+    defaultFormValues
+  );
 
   const methods = useForm<FormFields>({
-    defaultValues: defaultFormValues,
-    resolver: yupResolver(formSchema)
+    defaultValues: state,
+    resolver: yupResolver(formSchema),
   });
+
+  React.useEffect(() => {
+    storeItemInLocalStorage<AppState>(state);
+    methods.reset(state);
+  }, [methods, state]);
 
   const value = {
     state,
