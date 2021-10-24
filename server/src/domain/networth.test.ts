@@ -25,7 +25,7 @@ describe("Test calculateNetworth function", () => {
 
     let result = calculateNetworth(assets, liabilities, CurrencyCode.USD);
 
-    expect(result.netWorth).toBe("3613.47");
+    expect(result.totalNetWorth).toBe("3613.47");
     expect(result.totalAssets).toBe("3801.33");
     expect(result.totalLiabilities).toBe("187.86");
   });

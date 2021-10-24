@@ -30,7 +30,7 @@ export type CurrencyAPIResponse = Partial<Record<CurrencyCode, number>> & {
 };
 
 export interface NetWorth {
-  netWorth: string;
+  totalNetWorth: string;
   assets: Asset;
   liabilities: Liability;
 }
@@ -69,7 +69,7 @@ export type CalculateNetWorthRequest = {
 // ------------------------- RESPONSE --------------------------
 
 export type CalculateNetWorthResult = {
-  netWorth: string; 
+  totalNetWorth: string; 
   totalAssets: string;
   totalLiabilities: string;
 }

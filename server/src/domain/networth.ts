@@ -157,14 +157,14 @@ function convertLineItem(
 function convertNetWorth(nw: NetWorth, args: ConvertLineItemArgs): NetWorth {
   const assets = convertAssets(nw.assets, args);
   const liabs = convertLiabilities(nw.liabilities, args);
-  const { netWorth, totalAssets, totalLiabilities } = calculateNetworth(
+  const { totalNetWorth, totalAssets, totalLiabilities } = calculateNetworth(
     assets,
     liabs,
     args.newCurrencyCode
   );
 
   return {
-    netWorth,
+    totalNetWorth,
     assets: { ...assets, totalAssets },
     liabilities: { ...liabs, totalLiabilities },
   };
@@ -242,13 +242,13 @@ function calculateNetworth(
   const totalAssets = sumAssets(assets, currency);
   const totalLiabs = sumLiabilities(liabilities, currency);
 
-  const netWorthDinero = D.subtract(
+  const totalNetWorthDinero = D.subtract(
     sumAssets(assets, currency),
     sumLiabilities(liabilities, currency)
   );
 
   return {
-    netWorth: dineroToString(netWorthDinero),
+    totalNetWorth: dineroToString(totalNetWorthDinero),
     totalAssets: dineroToString(totalAssets),
     totalLiabilities: dineroToString(totalLiabs),
   };

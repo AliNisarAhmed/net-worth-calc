@@ -46,7 +46,7 @@ export const currencySchema = yup
 export const netWorthSchema = yup.object().shape({
   assets: assetSchema,
   liabilities: liabilitySchema,
-  netWorth: yup.string().matches(moneyRegex),
+  totalNetWorth: yup.string().matches(moneyRegex),
 });
 
 // ---------------------------- REQUEST Schemas ----------------------------------------
