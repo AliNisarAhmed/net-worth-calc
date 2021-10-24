@@ -2,25 +2,24 @@ import express, { Request, Response } from "express";
 import { convertNetWorth, getNumberWithScale } from "../utils";
 import { ConvertNetWorthRequest } from "../types";
 import { getRateFromApi } from "../api";
-import { currencyMap } from "../utils";
 import { calculateNetworth } from "../domain/networth";
 
 const router = express.Router();
 
 router.post("/networth/convert", async (req: Request, res: Response) => {
-  const { netWorth, oldCurrency, newCurrency } =
+  const { netWorth, oldCurrencyCode, newCurrencyCode } =
     req.body as ConvertNetWorthRequest;
 
   console.log("req body: ", req.body);
 
-  const apiResponse = await getRateFromApi(oldCurrency, newCurrency);
+  const apiResponse = await getRateFromApi(oldCurrencyCode, newCurrencyCode);
 
   console.log("API response: ", apiResponse);
 
   const newNetWorth = convertNetWorth(netWorth, {
-    scaledRate: getNumberWithScale(String(apiResponse[newCurrency])),
-    newCurrency: currencyMap[newCurrency],
-    oldCurrency: currencyMap[oldCurrency],
+    scaledRate: getNumberWithScale(String(apiResponse[newCurrencyCode])),
+    newCurrencyCode,
+    oldCurrencyCode,
   });
 
   console.log(JSON.stringify(newNetWorth, null, 2));

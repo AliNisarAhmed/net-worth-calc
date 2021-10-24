@@ -38,16 +38,16 @@ const CurrencySelector = () => {
   );
 
   async function handleCurrencyChange(e: any) {
-    const newCurrency = e.target.value;
-    const oldCurrency = getValues("currency");
+    const newCurrencyCode = e.target.value;
+    const oldCurrencyCode = getValues("currency");
     const oldAssets = getValues("assets");
     const oldLiabs = getValues("liabilities");
     const oldNetWorth = getValues("netWorth");
 
     try {
       const { assets, liabilities, netWorth } = await API.convertNetWorth({
-        oldCurrency,
-        newCurrency,
+        oldCurrencyCode,
+        newCurrencyCode,
         netWorth: {
           netWorth: oldNetWorth,
           assets: oldAssets,
@@ -61,7 +61,7 @@ const CurrencySelector = () => {
           netWorth,
           assets,
           liabilities,
-          currency: newCurrency,
+          currency: newCurrencyCode,
         },
       });
     } catch (e) {}

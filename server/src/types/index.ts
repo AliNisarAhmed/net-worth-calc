@@ -17,7 +17,7 @@ export enum CurrencyCode {
   CNY = "cny",
   EUR = "eur",
   JPY = "jpy",
-  INR = "int",
+  INR = "inr",
   GBP = "gbp",
   AUD = "aud",
   SGD = "sgd",
@@ -29,6 +29,7 @@ export enum CurrencyCode {
 export type CurrencyAPIResponse = Partial<Record<CurrencyCode, number>> & {date: string}
 
 export interface NetWorth {
+  netWorth: string;
   assets: Asset;
   liabilities: Liability;
 }
@@ -48,12 +49,11 @@ export interface LineItem {
   amount: string;
 }
 
-export interface AppState {
-  netWorth: NetWorth;
-}
+
+// -------------------------- REQUEST -------------------------
 
 export type ConvertNetWorthRequest = {
-  oldCurrency: CurrencyCode;
-  newCurrency: CurrencyCode;
+  oldCurrencyCode: CurrencyCode;
+  newCurrencyCode: CurrencyCode;
   netWorth: NetWorth;
 };

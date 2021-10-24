@@ -63,8 +63,8 @@ export type FormFields = {
 // -------------------------  REQUEST AND RESPONSE ----------------------
 
 export interface ConvertNetWorthRequest {
-  newCurrency: string;
-  oldCurrency: string;
+  newCurrencyCode: CurrencyCode;
+  oldCurrencyCode: CurrencyCode;
   netWorth: NetWorth;
 }
 

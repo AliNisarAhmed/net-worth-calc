@@ -28,6 +28,7 @@ import {
   down,
   Dinero,
 } from "dinero.js";
+import { calculateNetworth } from "../domain/networth";
 
 export const currencyMap: Record<CurrencyCode, Currency<number>> = {
   [CurrencyCode.AED]: AED,
@@ -51,7 +52,11 @@ export function convertNetWorth(
   nw: NetWorth,
   args: ConvertLineItemArgs
 ): NetWorth {
+  const assets = convertAssets(nw.assets, args);
+  const liabs = convertLiabilities(nw.liabilities, args);
+  const newNetWorth = calculateNetworth(assets, liabs, args.newCurrencyCode);
   return {
+    netWorth: newNetWorth,
     assets: convertAssets(nw.assets, args),
     liabilities: convertLiabilities(nw.liabilities, args),
   };
@@ -80,13 +85,16 @@ export function convertAssets(asset: Asset, args: ConvertLineItemArgs): Asset {
 
 export type ConvertLineItemArgs = {
   scaledRate: NumberWithScale;
-  newCurrency: Currency<number>;
-  oldCurrency: Currency<number>;
+  newCurrencyCode: CurrencyCode;
+  oldCurrencyCode: CurrencyCode;
 };
 export function convertLineItem(
   item: LineItem,
-  { scaledRate, newCurrency, oldCurrency }: ConvertLineItemArgs
+  { scaledRate, newCurrencyCode, oldCurrencyCode }: ConvertLineItemArgs
 ): LineItem {
+  const newCurrency = currencyMap[newCurrencyCode];
+  const oldCurrency = currencyMap[oldCurrencyCode];
+
   const amountDinero = numberToDinero(item.amount, oldCurrency);
 
   console.log("Amount Dinero: ", toSnapshot(amountDinero));
