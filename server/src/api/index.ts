@@ -3,7 +3,7 @@ import { CurrencyAPIResponse, CurrencyCode } from "../types";
 
 const exchangeApiBaseUrl = process.env.API_BASE_URL;
 
-export async function getRateFromApi(
+async function getRateFromApi(
   oldCurrency: CurrencyCode,
   newCurrency: CurrencyCode
 ): Promise<CurrencyAPIResponse> {
@@ -13,7 +13,9 @@ export async function getRateFromApi(
   return res.data as CurrencyAPIResponse;
 }
 
-export const sampleResponse: CurrencyAPIResponse = {
+const sampleResponse: CurrencyAPIResponse = {
   date: "2021-10-21",
   [CurrencyCode.CAD]: 1.231841,
 };
+
+export { getRateFromApi, sampleResponse }

@@ -9,7 +9,7 @@ type Strings = {
   };
 };
 
-export const strings: Strings = {
+const strings: Strings = {
   currencyLabels: {
     usd: "US Dollar",
     cad: "Canadian Dollar",
@@ -35,3 +35,5 @@ export const strings: Strings = {
     cny: "\u00a5",
   },
 };
+
+export { strings };

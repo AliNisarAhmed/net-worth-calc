@@ -17,7 +17,7 @@ export type Action =
 
 export type Dispatch = (action: Action) => void;
 
-export function appStateReducer(state: AppState, action: Action): AppState {
+function appStateReducer(state: AppState, action: Action): AppState {
   switch (action.type) {
     case "UPDATE_NET_WORTH":
       return {
@@ -49,3 +49,5 @@ export function appStateReducer(state: AppState, action: Action): AppState {
       return state;
   }
 }
+
+export { appStateReducer };

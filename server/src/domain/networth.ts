@@ -15,12 +15,23 @@ import {
   Currency,
 } from "@dinero.js/currencies";
 
+export {
+  currencyMap,
+  numberToDinero,
+  getNumberWithScale,
+  convertLineItem,
+  convertNetWorth,
+  convertLiabilities,
+  convertAssets,
+  calculateNetworth,
+};
+
 // --------------------------------------------------------------------------------
 // --------------------------------- DINERO ---------------------------------------------
 // --------------------------------------------------------------------------------
 
 // A hashmap from CurrencyCode to Currency type from Dinero.js
-export const currencyMap: Record<CurrencyCode, Currency<number>> = {
+const currencyMap: Record<CurrencyCode, Currency<number>> = {
   [CurrencyCode.AED]: AED,
   [CurrencyCode.USD]: USD,
   [CurrencyCode.CAD]: CAD,
@@ -52,10 +63,7 @@ function sumLineItemsToDinero(
 }
 
 // e.g. getNumeberWithScale(1.2345) -> { amount: 12345, scale: 4 }
-export function numberToDinero(
-  n: string,
-  currency: Currency<number>
-): Dinero<number> {
+function numberToDinero(n: string, currency: Currency<number>): Dinero<number> {
   let numberWithScale = getNumberWithScale(n);
 
   return D.dinero({
@@ -74,7 +82,7 @@ export type NumberWithScale = {
   scale: number;
 };
 
-export function getNumberWithScale(n: string | number): NumberWithScale {
+function getNumberWithScale(n: string | number): NumberWithScale {
   if (typeof n === "number") {
     n = String(n);
   }
@@ -104,7 +112,7 @@ export type ConvertLineItemArgs = {
   oldCurrencyCode: CurrencyCode;
 };
 
-export function convertLineItem(
+function convertLineItem(
   item: LineItem,
   { scaledRate, newCurrencyCode, oldCurrencyCode }: ConvertLineItemArgs
 ): LineItem {
@@ -135,10 +143,7 @@ export function convertLineItem(
 // --------------------------- NET WORTH - Conversion --------------------------------
 // --------------------------------------------------------------------------------
 
-export function convertNetWorth(
-  nw: NetWorth,
-  args: ConvertLineItemArgs
-): NetWorth {
+function convertNetWorth(nw: NetWorth, args: ConvertLineItemArgs): NetWorth {
   const assets = convertAssets(nw.assets, args);
   const liabs = convertLiabilities(nw.liabilities, args);
   const newNetWorth = calculateNetworth(assets, liabs, args.newCurrencyCode);
@@ -149,7 +154,7 @@ export function convertNetWorth(
   };
 }
 
-export function convertLiabilities(
+function convertLiabilities(
   liab: Liability,
   args: ConvertLineItemArgs
 ): Liability {
@@ -159,7 +164,7 @@ export function convertLiabilities(
   };
 }
 
-export function convertAssets(asset: Asset, args: ConvertLineItemArgs): Asset {
+function convertAssets(asset: Asset, args: ConvertLineItemArgs): Asset {
   return {
     cashAndInvestments: asset.cashAndInvestments.map((item) =>
       convertLineItem(item, args)
@@ -194,7 +199,7 @@ function sumLiabilities(
   );
 }
 
-export function calculateNetworth(
+function calculateNetworth(
   assets: Asset,
   liabilities: Liability,
   currencyCode: CurrencyCode

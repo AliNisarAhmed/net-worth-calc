@@ -1,5 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 
+export { HttpException, httpErrorHandler, genericErrorHandler };
+
+// ----------------------------------------------------------------------------------------
+
 class HttpException extends Error {
   status: number;
   message: string;
@@ -34,5 +38,3 @@ function genericErrorHandler(
   res.status(500);
   return res.json({ status: 500, message: err.message });
 }
-
-export { HttpException, httpErrorHandler, genericErrorHandler };
