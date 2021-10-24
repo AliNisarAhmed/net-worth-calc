@@ -18,7 +18,7 @@ interface Props {
 }
 
 const MoneyInput = ({ control, name }: Props) => {
-  const { handleSubmit, watch } = useFormContext();
+  const { handleSubmit, watch, formState } = useFormContext();
   const { dispatch } = useFormStateContext();
   const { state: appState, dispatch: appDispatch } = useAppStateContext();
 
@@ -68,43 +68,43 @@ const MoneyInput = ({ control, name }: Props) => {
   );
 
   async function handleOnBlur(data: FormFields) {
-    // if (formState.isDirty) {
-    try {
-      appDispatch({
-        type: "TOGGLE_IS_LOADING",
-      });
-
-      const { totalNetWorth, totalAssets, totalLiabilities } =
-        await API.calculateNetWorthOnServer({
-          assets: data.assets,
-          liabilities: data.liabilities,
-          currency: data.currency,
+    if (formState.isDirty) {
+      try {
+        appDispatch({
+          type: "TOGGLE_IS_LOADING",
         });
 
-      dispatch({
-        type: "NET_WORTH_CALCULATION_RESULT",
-        payload: {
-          currency: data.currency,
-          assets: { ...data.assets, totalAssets },
-          liabilities: { ...data.liabilities, totalLiabilities },
-          totalNetWorth,
-        },
-      });
+        const { totalNetWorth, totalAssets, totalLiabilities } =
+          await API.calculateNetWorthOnServer({
+            assets: data.assets,
+            liabilities: data.liabilities,
+            currency: data.currency,
+          });
 
-      console.log("Response from server: ", {
-        totalNetWorth,
-        totalAssets,
-        totalLiabilities,
-      });
-    } catch (e: any) {
-      toast(e?.response?.data?.message);
-    } finally {
-      appDispatch({
-        type: "TOGGLE_IS_LOADING",
-      });
+        dispatch({
+          type: "NET_WORTH_CALCULATION_RESULT",
+          payload: {
+            currency: data.currency,
+            assets: { ...data.assets, totalAssets },
+            liabilities: { ...data.liabilities, totalLiabilities },
+            totalNetWorth,
+          },
+        });
+
+        console.log("Response from server: ", {
+          totalNetWorth,
+          totalAssets,
+          totalLiabilities,
+        });
+      } catch (e: any) {
+        toast(e?.response?.data?.message);
+      } finally {
+        appDispatch({
+          type: "TOGGLE_IS_LOADING",
+        });
+      }
     }
   }
-  // }
 };
 
 export default MoneyInput;
