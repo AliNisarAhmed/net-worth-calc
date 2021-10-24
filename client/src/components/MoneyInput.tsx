@@ -10,6 +10,7 @@ import { storeItemInLocalStorage } from "../localStorage";
 import { getCurrencySymbol } from "../utils";
 import * as API from "../api";
 import { useAppContext } from "../context/AppContext";
+import { toast } from "react-toastify";
 
 interface Props {
   control: Control<FieldValues, Object>;
@@ -57,7 +58,7 @@ const MoneyInput = ({ control, name }: Props) => {
               lg:text-xl
               lg:text-right
               disabled:opacity-50
-              ${state.isLoading ? 'cursor-wait' : 'cursor-auto'}
+              ${state.isLoading ? "cursor-wait" : "cursor-auto"}
               `}
           />
         );
@@ -66,30 +67,38 @@ const MoneyInput = ({ control, name }: Props) => {
   );
 
   async function handleOnBlur(data: FormFields) {
-    dispatch({
-      type: "TOGGLE_IS_LOADING",
-    });
+    try {
+      dispatch({
+        type: "TOGGLE_IS_LOADING",
+      });
 
-    const res = await API.calculateNetWorthOnServer({
-      assets: data.assets,
-      liabilities: data.liabilities,
-      currency: data.currency,
-    });
+      const res = await API.calculateNetWorthOnServer({
+        assets: data.assets,
+        liabilities: data.liabilities,
+        currency: data.currency,
+      });
 
-    dispatch({
-      type: "NET_WORTH_CALCULATION_RESULT",
-      payload: {
-        ...data,
-        netWorth: res.netWorth,
-      },
-    });
+      dispatch({
+        type: "NET_WORTH_CALCULATION_RESULT",
+        payload: {
+          ...data,
+          netWorth: res.netWorth,
+        },
+      });
 
-    dispatch({
-      type: "TOGGLE_IS_LOADING",
-    });
+      dispatch({
+        type: "TOGGLE_IS_LOADING",
+      });
 
-    console.log("Response from server: ", res);
-    storeItemInLocalStorage<FormFields>(data);
+      console.log("Response from server: ", res);
+      storeItemInLocalStorage<FormFields>(data);
+    } catch (e: any) {
+      toast(e?.response?.data?.message);
+
+      dispatch({
+        type: "TOGGLE_IS_LOADING",
+      });
+    }
   }
 };
 

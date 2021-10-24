@@ -15,7 +15,6 @@ import {
   Currency,
 } from "@dinero.js/currencies";
 
-
 // --------------------------------------------------------------------------------
 // --------------------------------- DINERO ---------------------------------------------
 // --------------------------------------------------------------------------------
@@ -75,7 +74,6 @@ export type NumberWithScale = {
   scale: number;
 };
 
-
 export function getNumberWithScale(n: string | number): NumberWithScale {
   if (typeof n === "number") {
     n = String(n);
@@ -95,7 +93,6 @@ export function getNumberWithScale(n: string | number): NumberWithScale {
     }
   }
 }
-
 
 // --------------------------------------------------------------------------------
 // ------------------------- LINE ITEM - Conversion -------------------------

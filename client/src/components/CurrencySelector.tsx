@@ -3,6 +3,7 @@ import { useFormContext } from "react-hook-form";
 import { strings } from "../strings";
 import * as API from "../api";
 import { useAppContext } from "../context/AppContext";
+import { toast } from "react-toastify";
 
 const CurrencySelector = () => {
   const { register, getValues } = useFormContext();
@@ -63,10 +64,6 @@ const CurrencySelector = () => {
       });
 
       dispatch({
-        type: "TOGGLE_IS_LOADING",
-      });
-
-      dispatch({
         type: "UPDATE_NET_WORTH",
         payload: {
           netWorth,
@@ -75,7 +72,17 @@ const CurrencySelector = () => {
           currency: newCurrencyCode,
         },
       });
-    } catch (e) {}
+
+      dispatch({
+        type: "TOGGLE_IS_LOADING",
+      });
+    } catch (e: any) {
+      toast(e?.response?.data?.message);
+
+      dispatch({
+        type: "TOGGLE_IS_LOADING",
+      });
+    }
   }
 };
 
