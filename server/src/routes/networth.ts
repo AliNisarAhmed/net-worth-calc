@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { convertNetWorth, getNumberWithScale } from "../utils";
+import { convertNetWorth, getNumberWithScale } from "../domain/networth";
 import { ConvertNetWorthRequest } from "../types";
 import { getRateFromApi } from "../api";
 import { calculateNetworth } from "../domain/networth";

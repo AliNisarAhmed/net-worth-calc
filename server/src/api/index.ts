@@ -12,3 +12,8 @@ export async function getRateFromApi(
   );
   return res.data as CurrencyAPIResponse;
 }
+
+export const sampleResponse: CurrencyAPIResponse = {
+  date: "2021-10-21",
+  [CurrencyCode.CAD]: 1.231841,
+};

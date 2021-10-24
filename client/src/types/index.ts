@@ -39,10 +39,6 @@ export type CurrencyCode = typeof allCurrencies[number];
 // --------------------------- APP -------------------------------
 
 export interface AppState {
-  // netWorth: string;
-  // assets: Asset;
-  // liabilities: Liability;
-  // currency: CurrencyCode;
   formState: FormFields;
   isLoading: boolean;
 }
