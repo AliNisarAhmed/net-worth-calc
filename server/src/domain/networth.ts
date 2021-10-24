@@ -63,10 +63,11 @@ function sumLineItemsToDinero(
   items: LineItem[],
   currency: Currency<number>
 ): Dinero<number> {
-  return items.reduce(
-    (acc, item) => D.add(acc, lineItemToDinero(item, currency)),
-    D.dinero({ amount: 0, currency })
-  );
+  if (items.length === 0) {
+    return D.dinero({ amount: 0, currency });
+  }
+
+  return items.map((item) => lineItemToDinero(item, currency)).reduce(D.add);
 }
 
 // e.g. getNumeberWithScale(1.2345) -> { amount: 12345, scale: 4 }
@@ -81,7 +82,7 @@ function numberToDinero(n: string, currency: Currency<number>): Dinero<number> {
 }
 
 function dineroToString(dinero: Dinero<number>): string {
-  return String(D.toUnit(dinero, { digits: 2, round: D.down }));
+  return String(D.toUnit(dinero, { digits: 2, round: D.halfEven }));
 }
 
 // --------------------------------------------------------------------------------
@@ -132,21 +133,15 @@ function convertLineItem(
 
   const amountDinero = numberToDinero(item.amount, oldCurrency);
 
-  console.log("Amount Dinero: ", D.toSnapshot(amountDinero));
-
   let rates = {
     [newCurrency.code]: scaledRate,
   };
 
-  console.log("Rates: ", rates);
-
   let converted = D.convert(amountDinero, newCurrency, rates);
-
-  console.log("Converted: ", D.toSnapshot(converted));
 
   return {
     ...item,
-    amount: String(D.toUnit(converted, { digits: 2, round: D.down })),
+    amount: dineroToString(converted),
   };
 }
 
@@ -157,6 +152,7 @@ function convertLineItem(
 function convertNetWorth(nw: NetWorth, args: ConvertLineItemArgs): NetWorth {
   const assets = convertAssets(nw.assets, args);
   const liabs = convertLiabilities(nw.liabilities, args);
+
   const { totalNetWorth, totalAssets, totalLiabilities } = calculateNetworth(
     assets,
     liabs,
@@ -176,15 +172,11 @@ function convertLiabilities(
 ): Liability {
   const shortTerm = liab.shortTerm.map((item) => convertLineItem(item, args));
   const longTerm = liab.longTerm.map((item) => convertLineItem(item, args));
-  const totalLiabilities = sumLiabilities(
-    { shortTerm, longTerm },
-    currencyMap[args.newCurrencyCode]
-  );
 
   return {
     shortTerm,
     longTerm,
-    totalLiabilities: dineroToString(totalLiabilities),
+    totalLiabilities: liab.totalLiabilities,
   };
 }
 
@@ -196,15 +188,10 @@ function convertAssets(asset: Asset, args: ConvertLineItemArgs): Asset {
     convertLineItem(item, args)
   );
 
-  const totalAssets = sumAssets(
-    { cashAndInvestments, longTermAssets },
-    currencyMap[args.newCurrencyCode]
-  );
-
   return {
     cashAndInvestments,
     longTermAssets,
-    totalAssets: dineroToString(totalAssets),
+    totalAssets: asset.totalAssets,
   };
 }
 
@@ -242,10 +229,7 @@ function calculateNetworth(
   const totalAssets = sumAssets(assets, currency);
   const totalLiabs = sumLiabilities(liabilities, currency);
 
-  const totalNetWorthDinero = D.subtract(
-    sumAssets(assets, currency),
-    sumLiabilities(liabilities, currency)
-  );
+  const totalNetWorthDinero = D.subtract(totalAssets, totalLiabs);
 
   return {
     totalNetWorth: dineroToString(totalNetWorthDinero),

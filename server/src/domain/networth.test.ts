@@ -1,10 +1,10 @@
 import { Asset, CurrencyCode, Liability, LineItem } from "../types";
-import { calculateNetworth } from "./networth";
+import { calculateNetworth, convertNetWorth } from "./networth";
 
 import { convertLineItem, getNumberWithScale } from "./networth";
 
 describe("Test calculateNetworth function", () => {
-  test("calculates net worth correctly for given assets and liabilities", () => {
+  test("calculates net worth correctly for given assets and liabilities - 1", () => {
     let assets: Asset = {
       cashAndInvestments: [
         { label: "Line Item 1", amount: "1000.22" },
@@ -28,6 +28,102 @@ describe("Test calculateNetworth function", () => {
     expect(result.totalNetWorth).toBe("3613.47");
     expect(result.totalAssets).toBe("3801.33");
     expect(result.totalLiabilities).toBe("187.86");
+  });
+
+  test("Check for rounding errors", () => {
+    let assets: Asset = {
+      cashAndInvestments: [{ label: "Line Item 1", amount: "1000.88" }],
+      longTermAssets: [],
+      totalAssets: "",
+    };
+
+    let liabilities: Liability = {
+      longTerm: [],
+      shortTerm: [],
+      totalLiabilities: "",
+    };
+
+    let result = calculateNetworth(assets, liabilities, CurrencyCode.USD);
+
+    expect(result.totalNetWorth).toBe("1000.88");
+    expect(result.totalAssets).toBe("1000.88");
+    expect(result.totalLiabilities).toBe("0");
+  });
+
+  test("Test calculateNetworth function after conversion - 1", () => {
+    let assets: Asset = {
+      cashAndInvestments: [
+        { label: "Line Item 1", amount: "1000.22" },
+        { label: "Line Item 2", amount: "0.12" },
+      ],
+      longTermAssets: [
+        { label: "Line Item 3", amount: "1400.00" },
+        { label: "Line Item 4", amount: "1400.99" },
+      ],
+      totalAssets: "",
+    };
+
+    let liabilities: Liability = {
+      longTerm: [{ label: "Line Item 4", amount: "99.99" }],
+      shortTerm: [{ label: "Line Item 5", amount: "87.87" }],
+      totalLiabilities: "",
+    };
+
+    let newCurrencyCode = CurrencyCode.CAD;
+    let oldCurrencyCode = CurrencyCode.USD;
+    let exchangeRate = 0.80857;
+    let scaledRate = getNumberWithScale(exchangeRate);
+
+    let conversionResult = convertNetWorth(
+      { assets, liabilities, totalNetWorth: "0" },
+      {
+        newCurrencyCode,
+        oldCurrencyCode,
+        scaledRate,
+      }
+    );
+
+    expect(conversionResult.assets.totalAssets).toBe("3073.65");
+    expect(conversionResult.liabilities.totalLiabilities).toBe("151.9");
+    expect(conversionResult.totalNetWorth).toBe("2921.75");
+  });
+
+  test("Test calculateNetworth function after conversion - 2", () => {
+    let assets: Asset = {
+      cashAndInvestments: [
+        { label: "Line Item 1", amount: "10000.29" }, // 12367.86865779
+        { label: "Line Item 2", amount: "8900.89" }, // 11008.18760839
+      ],
+      longTermAssets: [
+        { label: "Line Item 3", amount: "9999.99" }, // 12367.49763249
+        { label: "Line Item 4", amount: "10000.99" }, // 12476.18331037
+      ],
+      totalAssets: "", // 48219.73720904
+    };
+
+    let liabilities: Liability = {
+      longTerm: [{ label: "Line Item 4", amount: "1099.99" }],
+      shortTerm: [{ label: "Line Item 5", amount: "10087.87" }],
+      totalLiabilities: "",
+    };
+
+    let newCurrencyCode = CurrencyCode.USD;
+    let oldCurrencyCode = CurrencyCode.CAD;
+    let exchangeRate = 1.236751;
+    let scaledRate = getNumberWithScale(exchangeRate);
+
+    let conversionResult = convertNetWorth(
+      { assets, liabilities, totalNetWorth: "0" },
+      {
+        newCurrencyCode,
+        oldCurrencyCode,
+        scaledRate,
+      }
+    );
+
+    expect(conversionResult.assets.totalAssets).toBe("48112.28");
+    expect(conversionResult.liabilities.totalLiabilities).toBe("13836.59");
+    expect(conversionResult.totalNetWorth).toBe("34275.69");
   });
 });
 
@@ -71,7 +167,7 @@ describe("Test Line Item conversion", () => {
     });
 
     expect(res1.amount).toEqual("1511.78");
-    expect(res2.amount).toEqual("0.14");
+    expect(res2.amount).toEqual("0.15");
     expect(res3.amount).toEqual("0");
   });
 
