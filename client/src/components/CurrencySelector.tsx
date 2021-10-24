@@ -6,7 +6,7 @@ import { useAppContext } from "../context/AppContext";
 
 const CurrencySelector = () => {
   const { register, getValues } = useFormContext();
-  const { dispatch } = useAppContext();
+  const { state, dispatch } = useAppContext();
 
   return (
     <div
@@ -21,12 +21,15 @@ const CurrencySelector = () => {
       <select
         {...register("currency")}
         onChange={handleCurrencyChange}
-        className="
+        disabled={state.isLoading}
+        className={`
           border-2 
           border-pink-500 
           py-2 mx-2 
           rounded-md
-        "
+          disabled:opacity-50
+          ${state.isLoading ? 'cursor-wait' : 'cursor-auto'} 
+        `}
       >
         {currencies.map((currency) => (
           <option key={currency} value={currency}>
@@ -45,6 +48,11 @@ const CurrencySelector = () => {
     const oldNetWorth = getValues("netWorth");
 
     try {
+
+      dispatch({
+        type: "TOGGLE_IS_LOADING",
+      });
+
       const { assets, liabilities, netWorth } = await API.convertNetWorth({
         oldCurrencyCode,
         newCurrencyCode,
@@ -53,6 +61,10 @@ const CurrencySelector = () => {
           assets: oldAssets,
           liabilities: oldLiabs,
         },
+      });
+
+      dispatch({
+        type: "TOGGLE_IS_LOADING",
       });
 
       dispatch({

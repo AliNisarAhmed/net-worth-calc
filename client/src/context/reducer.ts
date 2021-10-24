@@ -1,8 +1,19 @@
-import { AppState } from "../types";
+import { AppState, Asset, CurrencyCode, Liability } from "../types";
 
-export type Action = { type: ActionType; payload: any };
+export type NetWorthCalculationPayload = {
+  netWorth: string;
+  assets: Asset;
+  liabilities: Liability;
+  currency: CurrencyCode;
+};
 
-export type ActionType = "UPDATE_NET_WORTH" | "NET_WORTH_CALCULATION_RESULT";
+export type Action =
+  | { type: "UPDATE_NET_WORTH"; payload: NetWorthCalculationPayload }
+  | {
+      type: "NET_WORTH_CALCULATION_RESULT";
+      payload: NetWorthCalculationPayload;
+    }
+  | { type: "TOGGLE_IS_LOADING" };
 
 export type Dispatch = (action: Action) => void;
 
@@ -10,7 +21,7 @@ export function appStateReducer(state: AppState, action: Action): AppState {
   switch (action.type) {
     case "UPDATE_NET_WORTH":
       return {
-        isLoading: false,
+        ...state,
         formState: {
           netWorth: action.payload.netWorth,
           assets: action.payload.assets,
@@ -26,6 +37,12 @@ export function appStateReducer(state: AppState, action: Action): AppState {
           ...action.payload,
           currency: state.formState.currency,
         },
+      };
+
+    case "TOGGLE_IS_LOADING":
+      return {
+        ...state,
+        isLoading: !state.isLoading,
       };
 
     default:
