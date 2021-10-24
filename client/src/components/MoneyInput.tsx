@@ -18,7 +18,7 @@ interface Props {
 }
 
 const MoneyInput = ({ control, name }: Props) => {
-  const { handleSubmit, watch } = useFormContext();
+  const { handleSubmit, watch, formState } = useFormContext();
   const { state, dispatch } = useAppContext();
 
   const currency = watch("currency");
@@ -67,37 +67,39 @@ const MoneyInput = ({ control, name }: Props) => {
   );
 
   async function handleOnBlur(data: FormFields) {
-    try {
-      dispatch({
-        type: "TOGGLE_IS_LOADING",
-      });
+    if (formState.isDirty) {
+      try {
+        dispatch({
+          type: "TOGGLE_IS_LOADING",
+        });
 
-      const res = await API.calculateNetWorthOnServer({
-        assets: data.assets,
-        liabilities: data.liabilities,
-        currency: data.currency,
-      });
+        const res = await API.calculateNetWorthOnServer({
+          assets: data.assets,
+          liabilities: data.liabilities,
+          currency: data.currency,
+        });
 
-      dispatch({
-        type: "NET_WORTH_CALCULATION_RESULT",
-        payload: {
-          ...data,
-          netWorth: res.netWorth,
-        },
-      });
+        dispatch({
+          type: "NET_WORTH_CALCULATION_RESULT",
+          payload: {
+            ...data,
+            netWorth: res.netWorth,
+          },
+        });
 
-      dispatch({
-        type: "TOGGLE_IS_LOADING",
-      });
+        dispatch({
+          type: "TOGGLE_IS_LOADING",
+        });
 
-      console.log("Response from server: ", res);
-      storeItemInLocalStorage<FormFields>(data);
-    } catch (e: any) {
-      toast(e?.response?.data?.message);
+        console.log("Response from server: ", res);
+        storeItemInLocalStorage<FormFields>(data);
+      } catch (e: any) {
+        toast(e?.response?.data?.message);
 
-      dispatch({
-        type: "TOGGLE_IS_LOADING",
-      });
+        dispatch({
+          type: "TOGGLE_IS_LOADING",
+        });
+      }
     }
   }
 };
