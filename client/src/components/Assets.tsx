@@ -29,11 +29,17 @@ const Assets = () => {
           Assets
         </h2>
       </div>
-      <LineItems
-        header="Cash And Investments"
-        name="assets.cashAndInvestments"
-      />
-      <LineItems header="Long Term Assets" name="assets.longTermAssets" />
+      <fieldset>
+        <legend className="sr-only">Cash And Investments</legend>
+        <LineItems
+          header="Cash And Investments"
+          name="assets.cashAndInvestments"
+        />
+      </fieldset>
+      <fieldset>
+        <legend className="sr-only">Long Term Assets</legend>
+        <LineItems header="Long Term Assets" name="assets.longTermAssets" />
+      </fieldset>
       <TotalAssets assets={assets} />
     </div>
   );

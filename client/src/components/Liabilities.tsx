@@ -20,8 +20,17 @@ const Liabilities = () => {
       >
         <h2 className="text-2xl text-red-500">Liabilities</h2>
       </div>
-      <LineItems header="Short Term Liabilities" name="liabilities.shortTerm" />
-      <LineItems header="Long Term Liabilities" name="liabilities.longTerm" />
+      <fieldset>
+        <legend className="sr-only">Short Term liabilities</legend>
+        <LineItems
+          header="Short Term Liabilities"
+          name="liabilities.shortTerm"
+        />
+      </fieldset>
+      <fieldset>
+        <legend className="sr-only">Long Term Liabilities</legend>
+        <LineItems header="Long Term Liabilities" name="liabilities.longTerm" />
+      </fieldset>
       <TotalLiabilities liabilities={liabilities} />
     </div>
   );

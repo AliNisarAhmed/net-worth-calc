@@ -45,6 +45,7 @@ const MoneyInput = ({ control, name }: Props) => {
             fixedDecimalScale
             onBlur={handleSubmit(handleOnBlur)}
             disabled={appState.isLoading}
+            id={name}
             className={`
               px-5 py-2 
               outline-none 

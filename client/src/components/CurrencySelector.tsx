@@ -20,9 +20,12 @@ const CurrencySelector = () => {
       lg:items-baseline
     "
     >
-      <label className="text-sm">Select Currency: </label>
+      <label htmlFor="currencySelector" className="text-sm">
+        Select Currency:{" "}
+      </label>
       <select
         {...register("currency")}
+        id="currencySelector"
         onChange={handleCurrencyChange}
         disabled={appState.isLoading}
         className={`

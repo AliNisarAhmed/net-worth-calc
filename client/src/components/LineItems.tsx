@@ -54,6 +54,7 @@ const LineItems = ({ header, name }: Props) => {
               "
             >
               <label
+                htmlFor={name}
                 className="
                 block 
                 text-sm 
