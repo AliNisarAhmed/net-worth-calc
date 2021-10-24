@@ -6,11 +6,11 @@ import {
 } from "react-hook-form";
 import NumberFormat from "react-number-format";
 import { FormFields } from "../types";
-import { storeItemInLocalStorage } from "../localStorage";
 import { getCurrencySymbol } from "../utils";
 import * as API from "../api";
-import { useAppContext } from "../context/AppContext";
+import { useFormStateContext } from "../context/FormStateContext";
 import { toast } from "react-toastify";
+import { useAppStateContext } from "../context/AppStateContext";
 
 interface Props {
   control: Control<FieldValues, Object>;
@@ -18,8 +18,9 @@ interface Props {
 }
 
 const MoneyInput = ({ control, name }: Props) => {
-  const { handleSubmit, watch, formState } = useFormContext();
-  const { state, dispatch } = useAppContext();
+  const { handleSubmit, watch } = useFormContext();
+  const { dispatch } = useFormStateContext();
+  const { state: appState, dispatch: appDispatch } = useAppStateContext();
 
   const currency = watch("currency");
 
@@ -43,7 +44,7 @@ const MoneyInput = ({ control, name }: Props) => {
             decimalScale={2}
             fixedDecimalScale
             onBlur={handleSubmit(handleOnBlur)}
-            disabled={state.isLoading}
+            disabled={appState.isLoading}
             className={`
               px-5 py-2 
               outline-none 
@@ -58,7 +59,7 @@ const MoneyInput = ({ control, name }: Props) => {
               lg:text-xl
               lg:text-right
               disabled:opacity-50
-              ${state.isLoading ? "cursor-wait" : "cursor-auto"}
+              ${appState.isLoading ? "cursor-wait" : "cursor-auto"}
               `}
           />
         );
@@ -69,7 +70,7 @@ const MoneyInput = ({ control, name }: Props) => {
   async function handleOnBlur(data: FormFields) {
     // if (formState.isDirty) {
     try {
-      dispatch({
+      appDispatch({
         type: "TOGGLE_IS_LOADING",
       });
 
@@ -90,10 +91,6 @@ const MoneyInput = ({ control, name }: Props) => {
         },
       });
 
-      dispatch({
-        type: "TOGGLE_IS_LOADING",
-      });
-
       console.log("Response from server: ", {
         totalNetWorth,
         totalAssets,
@@ -101,8 +98,8 @@ const MoneyInput = ({ control, name }: Props) => {
       });
     } catch (e: any) {
       toast(e?.response?.data?.message);
-
-      dispatch({
+    } finally {
+      appDispatch({
         type: "TOGGLE_IS_LOADING",
       });
     }

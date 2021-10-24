@@ -41,7 +41,6 @@ export type CurrencyCode = typeof allCurrencies[number];
 // --------------------------- APP -------------------------------
 
 export interface AppState {
-  formState: FormFields;
   isLoading: boolean;
 }
 

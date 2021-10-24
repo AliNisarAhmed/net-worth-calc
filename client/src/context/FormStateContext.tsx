@@ -1,5 +1,5 @@
 import React from "react";
-import { AppState, FormFields } from "../types";
+import { FormFields } from "../types";
 import { data } from "../data";
 import { useForm, FormProvider } from "react-hook-form";
 import {
@@ -8,13 +8,13 @@ import {
 } from "../localStorage";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { formSchema } from "../validation";
-import { appStateReducer, Dispatch } from "./reducer";
+import { Dispatch, formStateReducer } from "./formStateReducer";
 
-const AppContext = React.createContext<
-  { state: AppState; dispatch: Dispatch } | undefined
+const FormContext = React.createContext<
+  { state: FormFields; dispatch: Dispatch } | undefined
 >(undefined);
 
-type AppContextProviderProps = { children: React.ReactNode };
+type FormContextProviderProps = { children: React.ReactNode };
 
 const initialFormState: FormFields = {
   totalNetWorth: data.totalNetWorth,
@@ -26,23 +26,21 @@ const initialFormState: FormFields = {
 const defaultFormValues =
   getItemFromLocalStorage<FormFields>() ?? initialFormState;
 
-const initialState: AppState = {
-  formState: defaultFormValues,
-  isLoading: false,
-};
-
-function AppContextProvider({ children }: AppContextProviderProps) {
-  const [state, dispatch] = React.useReducer(appStateReducer, initialState);
+function FormStateContextProvider({ children }: FormContextProviderProps) {
+  const [state, dispatch] = React.useReducer(
+    formStateReducer,
+    defaultFormValues
+  );
 
   const methods = useForm<FormFields>({
-    defaultValues: state.formState,
+    defaultValues: state,
     resolver: yupResolver(formSchema),
   });
 
   // This effect is used to update the form state after response from the server
   React.useEffect(() => {
-    storeItemInLocalStorage<FormFields>(state.formState);
-    methods.reset(state.formState);
+    storeItemInLocalStorage<FormFields>(state);
+    methods.reset(state);
   }, [methods, state]);
 
   const value = {
@@ -51,20 +49,22 @@ function AppContextProvider({ children }: AppContextProviderProps) {
   };
 
   return (
-    <AppContext.Provider value={value}>
+    <FormContext.Provider value={value}>
       <FormProvider {...methods}>{children}</FormProvider>
-    </AppContext.Provider>
+    </FormContext.Provider>
   );
 }
 
-function useAppContext() {
-  const context = React.useContext(AppContext);
+function useFormStateContext() {
+  const context = React.useContext(FormContext);
 
   if (context === undefined) {
-    throw new Error("useAppContext must be used within an AppContextProvider");
+    throw new Error(
+      "useFormStateContext must be used within an FormStateContextProvider"
+    );
   }
 
   return context;
 }
 
-export { AppContextProvider, useAppContext };
+export { FormStateContextProvider, useFormStateContext };
