@@ -11,9 +11,9 @@ const CurrencySelector = () => {
   return (
     <div
       className="
-      lg:flex 
-      lg:flex-row 
-      lg:justify-end 
+      lg:flex
+      lg:flex-row
+      lg:justify-end
       lg:items-baseline
     "
     >
@@ -23,12 +23,12 @@ const CurrencySelector = () => {
         onChange={handleCurrencyChange}
         disabled={state.isLoading}
         className={`
-          border-2 
-          border-pink-500 
-          py-2 mx-2 
+          border-2
+          border-pink-500
+          py-2 mx-2
           rounded-md
           disabled:opacity-50
-          ${state.isLoading ? 'cursor-wait' : 'cursor-auto'} 
+          ${state.isLoading ? "cursor-wait" : "cursor-auto"}
         `}
       >
         {currencies.map((currency) => (
@@ -48,7 +48,6 @@ const CurrencySelector = () => {
     const oldNetWorth = getValues("netWorth");
 
     try {
-
       dispatch({
         type: "TOGGLE_IS_LOADING",
       });

@@ -24,9 +24,10 @@ export enum CurrencyCode {
   AED = "aed",
 }
 
-
 // combining two types/objects: {date: string} with enum object
-export type CurrencyAPIResponse = Partial<Record<CurrencyCode, number>> & {date: string}
+export type CurrencyAPIResponse = Partial<Record<CurrencyCode, number>> & {
+  date: string;
+};
 
 export interface NetWorth {
   netWorth: string;
@@ -49,11 +50,16 @@ export interface LineItem {
   amount: string;
 }
 
-
 // -------------------------- REQUEST -------------------------
 
 export type ConvertNetWorthRequest = {
   oldCurrencyCode: CurrencyCode;
   newCurrencyCode: CurrencyCode;
   netWorth: NetWorth;
+};
+
+export type CalculateNetWorthRequest = {
+  assets: Asset;
+  liabilities: Liability;
+  currency: CurrencyCode;
 };
