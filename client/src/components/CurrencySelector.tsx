@@ -53,11 +53,11 @@ const CurrencySelector = () => {
         type: "TOGGLE_IS_LOADING",
       });
 
-      const { assets, liabilities, netWorth } = await API.convertNetWorth({
+      const { assets, liabilities, totalNetWorth } = await API.convertNetWorth({
         oldCurrencyCode,
         newCurrencyCode,
         netWorth: {
-          netWorth: oldNetWorth,
+          totalNetWorth: oldNetWorth,
           assets: oldAssets,
           liabilities: oldLiabs,
         },
@@ -66,7 +66,7 @@ const CurrencySelector = () => {
       dispatch({
         type: "UPDATE_NET_WORTH",
         payload: {
-          netWorth,
+          totalNetWorth,
           assets,
           liabilities,
           currency: newCurrencyCode,

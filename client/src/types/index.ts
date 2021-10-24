@@ -1,17 +1,19 @@
 // --------------------------- DOMAIN -------------------------------
 
 export interface NetWorth {
-  netWorth: string;
+  totalNetWorth: string;
   assets: Asset;
   liabilities: Liability;
 }
 
 export interface Asset {
+  totalAssets: string;
   cashAndInvestments: LineItem[];
   longTermAssets: LineItem[];
 }
 
 export interface Liability {
+  totalLiabilities: string;
   shortTerm: LineItem[];
   longTerm: LineItem[];
 }
@@ -44,12 +46,14 @@ export interface AppState {
 }
 
 export type FormFields = {
-  netWorth: string;
+  totalNetWorth: string;
   assets: {
+    totalAssets: string;
     cashAndInvestments: LineItem[];
     longTermAssets: LineItem[];
   };
   liabilities: {
+    totalLiabilities: string;
     shortTerm: LineItem[];
     longTerm: LineItem[];
   };
@@ -71,5 +75,7 @@ export interface CalculateNetWorthRequest {
 }
 
 export interface NetWorthCalculationResponse {
-  netWorth: string;
+  totalNetWorth: string;
+  totalAssets: string;
+  totalLiabilities: string;
 }

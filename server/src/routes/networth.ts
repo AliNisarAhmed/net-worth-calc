@@ -54,7 +54,7 @@ router.post(
 
     const netWorth = calculateNetworth(assets, liabilities, currency);
 
-    return res.json({ netWorth });
+    return res.json(netWorth);
   })
 );
 

@@ -1,8 +1,9 @@
 import { NetWorth } from "../types";
 
 export const data: NetWorth = {
-  netWorth: "0",
+  totalNetWorth: "0",
   assets: {
+    totalAssets: "0",
     cashAndInvestments: [
       { label: "Chequing", amount: "0.00" },
       { label: "Saving For Taxes", amount: "0" },
@@ -24,6 +25,7 @@ export const data: NetWorth = {
     ],
   },
   liabilities: {
+    totalLiabilities: "0",
     shortTerm: [
       { label: "Credit Card 1", amount: "0.00" },
       { label: "Credit Card 2", amount: "0" },

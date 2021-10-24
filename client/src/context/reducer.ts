@@ -1,14 +1,16 @@
-import { AppState, Asset, CurrencyCode, Liability } from "../types";
+import { AppState, Asset, CurrencyCode, FormFields, Liability } from "../types";
 
-export type NetWorthCalculationPayload = {
-  netWorth: string;
+export type NetWorthConversionPayload = {
+  totalNetWorth: string;
   assets: Asset;
   liabilities: Liability;
   currency: CurrencyCode;
 };
 
+export type NetWorthCalculationPayload = FormFields;
+
 export type Action =
-  | { type: "UPDATE_NET_WORTH"; payload: NetWorthCalculationPayload }
+  | { type: "UPDATE_NET_WORTH"; payload: NetWorthConversionPayload }
   | {
       type: "NET_WORTH_CALCULATION_RESULT";
       payload: NetWorthCalculationPayload;
@@ -23,7 +25,7 @@ function appStateReducer(state: AppState, action: Action): AppState {
       return {
         ...state,
         formState: {
-          netWorth: action.payload.netWorth,
+          totalNetWorth: action.payload.totalNetWorth,
           assets: action.payload.assets,
           liabilities: action.payload.liabilities,
           currency: action.payload.currency,
@@ -34,8 +36,10 @@ function appStateReducer(state: AppState, action: Action): AppState {
       return {
         ...state,
         formState: {
-          ...action.payload,
-          currency: state.formState.currency,
+          assets: action.payload.assets,
+          liabilities: action.payload.liabilities,
+          totalNetWorth: action.payload.totalNetWorth,
+          currency: action.payload.currency,
         },
       };
 

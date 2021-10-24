@@ -1,6 +1,6 @@
 import { Liability } from "../types";
 import LineItems from "./LineItems";
-import { calculateTotalLiabilities, getCurrencySymbol } from "../utils";
+import { getCurrencySymbol } from "../utils";
 import { useFormContext } from "react-hook-form";
 import NumberFormat from "react-number-format";
 import MoneyText from "./MoneyText";
@@ -52,7 +52,7 @@ const TotalLiabilities = ({ liabilities }: { liabilities: Liability }) => {
         allowLeadingZeros={false}
         displayType="text"
         type="text"
-        value={calculateTotalLiabilities(liabilities)}
+        value={liabilities.totalLiabilities}
         decimalScale={2}
         fixedDecimalScale
         renderText={(val: string) => (

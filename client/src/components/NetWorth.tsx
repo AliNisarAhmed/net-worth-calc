@@ -6,7 +6,7 @@ import MoneyText from "./MoneyText";
 const NetWorth = () => {
   const { watch } = useFormContext();
   const currency = watch("currency");
-  const netWorth = watch('netWorth') 
+  const totalNetWorth = watch("totalNetWorth");
 
   return (
     <div
@@ -35,7 +35,7 @@ const NetWorth = () => {
         allowLeadingZeros={false}
         displayType="text"
         type="text"
-        value={netWorth}
+        value={totalNetWorth}
         decimalScale={2}
         // @ts-ignore
         renderText={(val: string, props: NumberFormatProps) => (
@@ -43,7 +43,7 @@ const NetWorth = () => {
         )}
         fixedDecimalScale
         className={`tracking-wider ${
-          Number(netWorth) >= 0 ? "text-green-500" : "text-red-500"
+          Number(totalNetWorth) >= 0 ? "text-green-500" : "text-red-500"
         }`}
         currency={currency}
       />

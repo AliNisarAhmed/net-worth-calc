@@ -1,6 +1,6 @@
 import { Asset } from "../types";
 import LineItems from "../components/LineItems";
-import { calculateTotalAssets, getCurrencySymbol } from "../utils";
+import { getCurrencySymbol } from "../utils";
 import { useFormContext } from "react-hook-form";
 import NumberFormat from "react-number-format";
 import MoneyText from "./MoneyText";
@@ -65,7 +65,7 @@ const TotalAssets = ({ assets }: { assets: Asset }) => {
         displayType="text"
         type="text"
         renderText={(val: string) => <MoneyText value={val} type="assets" />}
-        value={calculateTotalAssets(assets)}
+        value={assets.totalAssets}
         decimalScale={2}
         fixedDecimalScale
       />

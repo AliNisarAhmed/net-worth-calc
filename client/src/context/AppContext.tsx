@@ -17,7 +17,7 @@ const AppContext = React.createContext<
 type AppContextProviderProps = { children: React.ReactNode };
 
 const initialFormState: FormFields = {
-  netWorth: data.netWorth,
+  totalNetWorth: data.totalNetWorth,
   assets: data.assets,
   liabilities: data.liabilities,
   currency: "cad",
