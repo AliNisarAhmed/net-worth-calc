@@ -38,11 +38,13 @@ export interface NetWorth {
 export interface Asset {
   cashAndInvestments: LineItem[];
   longTermAssets: LineItem[];
+  totalAssets: string;
 }
 
 export interface Liability {
   shortTerm: LineItem[];
   longTerm: LineItem[];
+  totalLiabilities: string;
 }
 
 export interface LineItem {
@@ -63,3 +65,11 @@ export type CalculateNetWorthRequest = {
   liabilities: Liability;
   currency: CurrencyCode;
 };
+
+// ------------------------- RESPONSE --------------------------
+
+export type CalculateNetWorthResult = {
+  netWorth: string; 
+  totalAssets: string;
+  totalLiabilities: string;
+}

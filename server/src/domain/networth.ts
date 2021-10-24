@@ -1,6 +1,13 @@
 import * as D from "dinero.js";
 import { Dinero } from "dinero.js";
-import { Asset, CurrencyCode, Liability, LineItem, NetWorth } from "../types";
+import {
+  Asset,
+  CalculateNetWorthResult,
+  CurrencyCode,
+  Liability,
+  LineItem,
+  NetWorth,
+} from "../types";
 import {
   USD,
   CAD,
@@ -71,6 +78,10 @@ function numberToDinero(n: string, currency: Currency<number>): Dinero<number> {
     scale: numberWithScale.scale,
     currency: currency,
   });
+}
+
+function dineroToString(dinero: Dinero<number>): string {
+  return String(D.toUnit(dinero, { digits: 2, round: D.down }));
 }
 
 // --------------------------------------------------------------------------------
@@ -146,11 +157,16 @@ function convertLineItem(
 function convertNetWorth(nw: NetWorth, args: ConvertLineItemArgs): NetWorth {
   const assets = convertAssets(nw.assets, args);
   const liabs = convertLiabilities(nw.liabilities, args);
-  const newNetWorth = calculateNetworth(assets, liabs, args.newCurrencyCode);
+  const { netWorth, totalAssets, totalLiabilities } = calculateNetworth(
+    assets,
+    liabs,
+    args.newCurrencyCode
+  );
+
   return {
-    netWorth: newNetWorth,
-    assets: convertAssets(nw.assets, args),
-    liabilities: convertLiabilities(nw.liabilities, args),
+    netWorth,
+    assets: { ...assets, totalAssets },
+    liabilities: { ...liabs, totalLiabilities },
   };
 }
 
@@ -158,20 +174,37 @@ function convertLiabilities(
   liab: Liability,
   args: ConvertLineItemArgs
 ): Liability {
+  const shortTerm = liab.shortTerm.map((item) => convertLineItem(item, args));
+  const longTerm = liab.longTerm.map((item) => convertLineItem(item, args));
+  const totalLiabilities = sumLiabilities(
+    { shortTerm, longTerm },
+    currencyMap[args.newCurrencyCode]
+  );
+
   return {
-    shortTerm: liab.shortTerm.map((item) => convertLineItem(item, args)),
-    longTerm: liab.longTerm.map((item) => convertLineItem(item, args)),
+    shortTerm,
+    longTerm,
+    totalLiabilities: dineroToString(totalLiabilities),
   };
 }
 
 function convertAssets(asset: Asset, args: ConvertLineItemArgs): Asset {
+  const cashAndInvestments = asset.cashAndInvestments.map((item) =>
+    convertLineItem(item, args)
+  );
+  const longTermAssets = asset.longTermAssets.map((item) =>
+    convertLineItem(item, args)
+  );
+
+  const totalAssets = sumAssets(
+    { cashAndInvestments, longTermAssets },
+    currencyMap[args.newCurrencyCode]
+  );
+
   return {
-    cashAndInvestments: asset.cashAndInvestments.map((item) =>
-      convertLineItem(item, args)
-    ),
-    longTermAssets: asset.longTermAssets.map((item) =>
-      convertLineItem(item, args)
-    ),
+    cashAndInvestments,
+    longTermAssets,
+    totalAssets: dineroToString(totalAssets),
   };
 }
 
@@ -180,7 +213,7 @@ function convertAssets(asset: Asset, args: ConvertLineItemArgs): Asset {
 // --------------------------------------------------------------------------------
 
 function sumAssets(
-  { cashAndInvestments, longTermAssets }: Asset,
+  { cashAndInvestments, longTermAssets }: Partial<Asset>,
   currency: Currency<number>
 ): Dinero<number> {
   return D.add(
@@ -190,7 +223,7 @@ function sumAssets(
 }
 
 function sumLiabilities(
-  { shortTerm, longTerm }: Liability,
+  { shortTerm, longTerm }: Partial<Liability>,
   currency: Currency<number>
 ): Dinero<number> {
   return D.add(
@@ -203,15 +236,20 @@ function calculateNetworth(
   assets: Asset,
   liabilities: Liability,
   currencyCode: CurrencyCode
-): string {
+): CalculateNetWorthResult {
   const currency = currencyMap[currencyCode];
 
-  console.log("currency: ", currency);
+  const totalAssets = sumAssets(assets, currency);
+  const totalLiabs = sumLiabilities(liabilities, currency);
 
   const netWorthDinero = D.subtract(
     sumAssets(assets, currency),
     sumLiabilities(liabilities, currency)
   );
 
-  return String(D.toUnit(netWorthDinero, { digits: 2, round: D.down }));
+  return {
+    netWorth: dineroToString(netWorthDinero),
+    totalAssets: dineroToString(totalAssets),
+    totalLiabilities: dineroToString(totalLiabs),
+  };
 }

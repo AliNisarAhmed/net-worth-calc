@@ -26,6 +26,7 @@ export const liabilitySchema = yup
   .shape({
     shortTerm: yup.array().required().of(lineItemSchema),
     longTerm: yup.array().required().of(lineItemSchema),
+    totalLiabilities: yup.string().matches(moneyRegex),
   });
 
 export const assetSchema = yup
@@ -34,6 +35,7 @@ export const assetSchema = yup
   .shape({
     cashAndInvestments: yup.array().required().of(lineItemSchema),
     longTermAssets: yup.array().required().of(lineItemSchema),
+    totalAssets: yup.string().matches(moneyRegex),
   });
 
 export const currencySchema = yup

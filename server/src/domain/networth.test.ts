@@ -14,16 +14,20 @@ describe("Test calculateNetworth function", () => {
         { label: "Line Item 3", amount: "1400" },
         { label: "Line Item 4", amount: "1400.99" },
       ],
+      totalAssets: "",
     };
 
     let liabilities: Liability = {
       longTerm: [{ label: "Line Item 4", amount: "99.99" }],
       shortTerm: [{ label: "Line Item 5", amount: "87.87" }],
+      totalLiabilities: "",
     };
 
     let result = calculateNetworth(assets, liabilities, CurrencyCode.USD);
 
-    expect(result).toBe("3613.47");
+    expect(result.netWorth).toBe("3613.47");
+    expect(result.totalAssets).toBe("3801.33");
+    expect(result.totalLiabilities).toBe("187.86");
   });
 });
 
