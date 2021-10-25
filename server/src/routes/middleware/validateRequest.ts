@@ -10,7 +10,6 @@ const validateRequestMW =
       await resourceSchema.validate(resource);
       next();
     } catch (e) {
-      console.error(e);
       return res.status(400).json({ error: e?.errors?.join(", ") });
     }
   };

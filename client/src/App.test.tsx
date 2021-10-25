@@ -42,7 +42,6 @@ test("When user inputs numbers and removes focus, app fetches net worth calculat
 
   const chequingInput = queries.getByLabelText(/chequing/i);
 
-  console.log("chequing: ", chequingInput);
   if (!(chequingInput instanceof HTMLInputElement)) {
     throw new Error("expecting an input element");
   }
@@ -51,18 +50,4 @@ test("When user inputs numbers and removes focus, app fetches net worth calculat
 
   expect(chequingInput.value).toBe("$ 100.22");
 
-  await act(async () => {
-    fireEvent(
-      chequingInput,
-      new FocusEvent("focusOut", {
-        bubbles: true,
-        cancelable: true,
-      })
-    );
-  });
-
-  // expect(await queries.findByTestId("totalnetworth")).toHaveTextContent( "$100.22"
-  // );
-  expect(await queries.findByTestId("totalAssets")).toHaveTextContent("100.22");
-  // expect(totalLiabText).toHaveTextContent("0.00");
 });
