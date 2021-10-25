@@ -5,8 +5,7 @@ function SummaryText({ children }: Props) {
   return (
     <div
       className="
-      sm:absolute
-      lg:relative
+      relative
       inline-block 
       w-full
       h-24
@@ -20,8 +19,9 @@ function SummaryText({ children }: Props) {
     >
       <div
         className="
+        sm:absolute
+        lg:relative
         w-full
-        lg:w-10/12
         lg:flex
         lg:flex-row
         lg:justify-end
