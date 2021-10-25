@@ -70,7 +70,9 @@ const TotalAssets = ({ assets }: { assets: Asset }) => {
         allowLeadingZeros={false}
         displayType="text"
         type="text"
-        renderText={(val: string) => <MoneyText value={val} type="assets" />}
+        renderText={(val: string) => (
+          <MoneyText testId="totalAssets" value={val} type="assets" />
+        )}
         value={assets.totalAssets}
         decimalScale={2}
         fixedDecimalScale

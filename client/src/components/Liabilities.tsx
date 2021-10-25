@@ -65,7 +65,7 @@ const TotalLiabilities = ({ liabilities }: { liabilities: Liability }) => {
         decimalScale={2}
         fixedDecimalScale
         renderText={(val: string) => (
-          <MoneyText value={val} type="liabilities" />
+          <MoneyText testId="totalLiabilities" value={val} type="liabilities" />
         )}
       />
     </SummaryText>

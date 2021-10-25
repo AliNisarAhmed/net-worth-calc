@@ -54,7 +54,7 @@ const LineItems = ({ header, name }: Props) => {
               "
             >
               <label
-                htmlFor={name}
+                htmlFor={`${name}.${index}.amount`}
                 className="
                 block 
                 text-sm 

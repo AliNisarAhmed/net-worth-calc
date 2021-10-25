@@ -26,7 +26,7 @@ const NetWorth = () => {
       overflow-x-auto
     "
     >
-      <p className="inline-block lg:text-2xl lg:mr-4">Net Worth: </p>
+      <p className="inline-block lg:text-2xl lg:mr-4">Net Worth:</p>
       <NumberFormat
         defaultValue={0}
         thousandSeparator=","
@@ -39,7 +39,7 @@ const NetWorth = () => {
         decimalScale={2}
         // @ts-ignore
         renderText={(val: string, props: NumberFormatProps) => (
-          <MoneyText value={val} type="networth" otherProps={props} />
+          <MoneyText testId="totalnetworth" value={val} type="networth" otherProps={props} />
         )}
         fixedDecimalScale
         className={`tracking-wider ${
