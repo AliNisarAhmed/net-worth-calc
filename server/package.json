@@ -1,7 +1,10 @@
 {
-  "name": "server",
+  "name": "net-worth-server",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "node": "16.4.x"
+  },
   "scripts": {
     "start": "nodemon -r dotenv/config index.ts",
     "test": "jest --watch"
