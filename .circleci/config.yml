@@ -14,9 +14,9 @@ jobs:
     working_directory: ~/repo/server
     steps: 
       - checkout:
-        path: ~/repo
+          path: ~/repo
       - run: npm install 
-      - run: npm build 
+      - run: npm run build 
         
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
