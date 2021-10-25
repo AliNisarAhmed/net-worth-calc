@@ -5,7 +5,6 @@ function SummaryText({ children }: Props) {
   return (
     <div
       className="
-      relative
       inline-block 
       w-full
       h-24
@@ -27,7 +26,8 @@ function SummaryText({ children }: Props) {
         lg:justify-end
         lg:items-baseline
         overflow-auto
-        h-24
+        h-full
+        lg:w-10/12
       "
       >
         {children}
