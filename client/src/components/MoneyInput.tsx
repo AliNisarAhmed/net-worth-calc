@@ -35,7 +35,13 @@ const MoneyInput = ({ control, name }: Props) => {
             thousandSeparator=","
             allowNegative={false}
             allowLeadingZeros={false}
-            onValueChange={({ value }) => field.onChange(value)}
+            onValueChange={({ value }) => {
+              if (value === null || value === undefined || value.length === 0) {
+                field.onChange("0");
+              } else {
+                field.onChange(value);
+              }
+            }}
             value={field.value}
             displayType="input"
             type="text"
