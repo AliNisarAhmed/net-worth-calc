@@ -9,7 +9,8 @@
     "start": "nodemon -r dotenv/config index.ts",
     "postinstall": "tsc",
     "test": "jest --watch",
-    "deploy": "git add . && git commit -m HEROKU && git push heroku master"
+    "deploy": "git add . && git commit -m HEROKU && git push heroku master",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
