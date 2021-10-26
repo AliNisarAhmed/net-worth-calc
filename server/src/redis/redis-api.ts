@@ -13,25 +13,30 @@ async function getCurrencyRateFromCache({
 }: CurrencyParams): Promise<CurrencyAPIResponse | null> {
   const key = `${oldCurrencyCode}-${newCurrencyCode}`;
 
-  const keyExists = await client.exists(key);
+  try {
+    const keyExists = await client.exists(key);
 
-  if (keyExists) {
-    const res = await client.get(`${oldCurrencyCode}-${newCurrencyCode}`);
-    return JSON.parse(res);
+    if (keyExists) {
+      const res = await client.get(`${oldCurrencyCode}-${newCurrencyCode}`);
+      return JSON.parse(res);
+    }
+  } catch (e) {
+  } finally {
+    return null;
   }
-
-  return null;
 }
 
 async function storeCurrencyRateInCache(
   { oldCurrencyCode, newCurrencyCode }: CurrencyParams,
   apiResponse: CurrencyAPIResponse
 ) {
-  await client.set(
-    `${oldCurrencyCode}-${newCurrencyCode}`,
-    JSON.stringify(apiResponse),
-    ["EX", getNumberOfSecondsToMidnight(apiResponse.date)]
-  );
+  try {
+    await client.set(
+      `${oldCurrencyCode}-${newCurrencyCode}`,
+      JSON.stringify(apiResponse),
+      ["EX", getNumberOfSecondsToMidnight(apiResponse.date)]
+    );
+  } catch (e) {}
 }
 
 export { getCurrencyRateFromCache, storeCurrencyRateInCache };

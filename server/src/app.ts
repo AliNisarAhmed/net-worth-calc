@@ -2,13 +2,10 @@ import express from "express";
 import netWorthRouter from "./routes/networth";
 import cors from "cors";
 import { httpErrorHandler, genericErrorHandler } from "./routes/errorHandler";
-import client from "./redis/redis-client";
 import path from "path";
 
 export default async () => {
   const app = express();
-
-  await client.connect();
 
   app.use(express.static(path.resolve(__dirname, "../client/build")));
 

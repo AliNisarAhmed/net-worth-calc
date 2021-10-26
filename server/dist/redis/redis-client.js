@@ -21,6 +21,14 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const redis = __importStar(require("redis"));
 const url = process.env.REDIS_URL;
-const client = redis.createClient({ url });
+const client = redis.createClient({
+    url,
+    retry_strategy: (options) => {
+        var _a;
+        if (((_a = options === null || options === void 0 ? void 0 : options.error) === null || _a === void 0 ? void 0 : _a.code) === "ECONNREFUSED") {
+            return;
+        }
+    },
+});
 exports.default = client;
 //# sourceMappingURL=redis-client.js.map
