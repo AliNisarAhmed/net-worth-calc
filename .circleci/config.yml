@@ -8,15 +8,6 @@ orbs:
   heroku: circleci/heroku@1.2.6
 
 jobs: 
-  build_client: 
-    docker: 
-      - image: circleci/node:16.4.2
-    working_directory: ~repo/server
-    steps: 
-      - checkout: 
-          path: ~/repo 
-      - run: cd ./client && yarn install 
-      - run: cd ./client && yarn run build
   build_server: 
     docker: 
       - image: circleci/node:16.4.2
@@ -24,6 +15,8 @@ jobs:
     steps: 
       - checkout:
           path: ~/repo
+      - run: cd ./client && yarn
+      - run: cd ./client && yarn build
       - run: npm install 
       - run: npm run build 
   deploy: 
@@ -38,6 +31,6 @@ jobs:
 workflows:
   heroku_deploy: 
     jobs: 
-      - build_client
-      - build_server
       - deploy
+        requires:
+          - build_server
