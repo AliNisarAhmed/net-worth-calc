@@ -16,7 +16,7 @@ jobs:
       - checkout: 
           path: ~/repo 
       - run: cd ./client && yarn install 
-      - run: cd client && yarn run build
+      - run: cd ./client && yarn run build
   build_server: 
     docker: 
       - image: circleci/node:16.4.2
