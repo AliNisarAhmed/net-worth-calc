@@ -9,7 +9,7 @@ interface Props {
 
 function MoneyText({ type, value, otherProps, testId }: Props) {
   let baseClasses =
-    "sm:absolute lg:relative w-full sm:max-w-full lg:w-min text-2xl tracking-wide lg:mt-2";
+    "text-2xl tracking-wide lg:my-1 lg:mr-4";
 
   switch (type) {
     case "networth":

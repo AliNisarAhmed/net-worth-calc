@@ -29,7 +29,7 @@ const LineItems = ({ header, name }: Props) => {
   }
 
   return (
-    <div
+    <section
       className="
       divide-y 
       divide-black-900
@@ -91,12 +91,11 @@ const LineItems = ({ header, name }: Props) => {
           </div>
         );
       })}
-    </div>
+    </section>
   );
 
   function toggleCollapse(name: string) {
     return () => {
-      console.log("toggle collapse: ", name);
       dispatch({
         type: "TOGGLE_COLLAPSE",
         payload: name,

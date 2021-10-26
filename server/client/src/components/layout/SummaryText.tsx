@@ -9,22 +9,19 @@ function SummaryText({ children }: Props) {
       w-full
       h-24
       border-t-4 border-b-4 border-black-600 border-double 
-      py-4 
       my-4
       flex
       justify-center
-      lg:h-22
+      lg:h-18
       "
     >
       <div
         className="
-        sm:absolute
-        lg:relative
         w-full
-        lg:flex
-        lg:flex-row
-        lg:justify-end
-        lg:items-baseline
+        flex
+        flex-col
+        justify-center
+        items-end
         overflow-auto
         h-full
         lg:w-10/12

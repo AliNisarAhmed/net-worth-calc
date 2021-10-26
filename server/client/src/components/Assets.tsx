@@ -55,7 +55,6 @@ const TotalAssets = ({ assets }: { assets: Asset }) => {
     <SummaryText>
       <p
         className="
-        inline-block
         lg:text-xl
         lg:mr-4
       "
