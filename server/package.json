@@ -10,7 +10,7 @@
     "postinstall": "tsc",
     "test": "jest --watch",
     "deploy": "git add . && git commit -m HEROKU && git push heroku master",
-    "build": "cd ./client && yarn build",
+    "build": "cd ./client && yarn && yarn build",
     "build:server": "tsc"
   },
   "keywords": [],
