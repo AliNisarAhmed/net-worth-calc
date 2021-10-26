@@ -17,12 +17,17 @@ const networth_1 = __importDefault(require("./routes/networth"));
 const cors_1 = __importDefault(require("cors"));
 const errorHandler_1 = require("./routes/errorHandler");
 const redis_client_1 = __importDefault(require("./redis/redis-client"));
+const path_1 = __importDefault(require("path"));
 exports.default = () => __awaiter(void 0, void 0, void 0, function* () {
     const app = (0, express_1.default)();
     yield redis_client_1.default.connect();
+    app.use(express_1.default.static(path_1.default.resolve(__dirname, "../client/build")));
     app.use((0, cors_1.default)());
     app.use(express_1.default.json());
     app.use("/api", networth_1.default);
+    app.get("*", (req, res) => {
+        return res.sendFile(path_1.default.resolve(__dirname, "../client/build", "index.html"));
+    });
     app.use(errorHandler_1.httpErrorHandler);
     app.use(errorHandler_1.genericErrorHandler);
     return app;
