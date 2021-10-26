@@ -59,7 +59,9 @@ const LineItems = ({ header, name }: Props) => {
             className="
             flex flex-col 
             items-center 
+            justify-between
             py-4
+            mb-2
             "
           >
             <div

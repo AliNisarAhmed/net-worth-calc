@@ -7,7 +7,7 @@ const moneyRegex = /^\d+(\.\d{1,2})?$/;
 
 const lineItemSchema = yup.object().shape({
   label: yup.string().required(),
-  amount: yup.string().matches(moneyRegex),
+  amount: yup.string().matches(moneyRegex).max(19),
 });
 
 const liabilitySchema = yup.object().shape({
