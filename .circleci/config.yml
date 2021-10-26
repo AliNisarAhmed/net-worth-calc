@@ -18,7 +18,7 @@ jobs:
       - run: cd ./client && yarn
       - run: cd ./client && yarn build
       - run: npm install 
-      - run: npm run build 
+      - run: npm run build:server
   deploy: 
     executor: heroku/default
     steps: 
