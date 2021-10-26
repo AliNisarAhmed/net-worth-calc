@@ -18,6 +18,7 @@
   b. Add the link to regex101 (or similar) for others
   c. Add unit tests
 4. Resolve UI issue if the user enters a huge number
+5. Add aria invalid to invalid input fields
 
 --- 
 

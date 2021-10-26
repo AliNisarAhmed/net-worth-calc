@@ -13,3 +13,8 @@
   - The inverse of a currency pair is not equal to the exchange rate of the opposite pair because these spot rates come from contributors and market makers for each currency pair
 5. Using POST request to convert and calculate, instead of GET
 6. Add Express middleware for Request validation
+7. Huge numbers greater than `Number.MAX_SAFE_INTEGER`
+  - One option: don't allow number bigger/close to the max
+  - Second option: Use `BigInt` JS primitive type: 
+    - but then BigInt is only limited to integers 
+    - all numbers must be `BigInt` if one number is BigInt
