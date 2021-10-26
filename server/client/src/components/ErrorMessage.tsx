@@ -6,14 +6,13 @@ interface Props {
 }
 
 function ErrorMessageWrapper({ name, errors }: Props) {
-
   return (
     <div className="h-1/6 sm:max-w-30 pt-1">
       <ErrorMessage
         name={name}
         errors={errors}
         render={() => (
-          <p className="inline-block italic text-red-500 sm:mt-2">
+          <p role="alert" className="inline-block italic text-red-500 sm:mt-2">
             Number is too big for our calculators!
           </p>
         )}

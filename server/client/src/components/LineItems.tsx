@@ -31,16 +31,16 @@ const LineItems = ({ header, name }: Props) => {
   return (
     <section
       className="
-      divide-y 
+      divide-y
       divide-black-900
       "
     >
       <div className="flex flex-row justify-between">
         <h2
           className="
-        text-lg 
-        my-4 
-        lg:text-xl 
+        text-lg
+        my-4
+        lg:text-xl
         lg:underline
         "
         >
@@ -57,8 +57,8 @@ const LineItems = ({ header, name }: Props) => {
           <div
             key={index}
             className="
-            flex flex-col 
-            items-center 
+            flex flex-col
+            items-center
             justify-between
             py-4
             mb-2
@@ -66,23 +66,23 @@ const LineItems = ({ header, name }: Props) => {
           >
             <div
               className="
-              flex 
-              flex-col 
-              lg:flex-row 
-              items-start 
-              lg:justify-between 
-              lg:items-center 
-              w-4/5 
+              flex
+              flex-col
+              lg:flex-row
+              items-start
+              lg:justify-between
+              lg:items-center
+              w-4/5
               lg:w-10/12
               "
             >
               <label
                 htmlFor={`${name}.${index}.amount`}
                 className="
-                block 
-                text-sm 
-                text-gray-600 
-                lg:inline-block 
+                block
+                text-sm
+                text-gray-600
+                lg:inline-block
                 lg:text-xl
               "
               >

@@ -12,6 +12,7 @@ import { useFormStateContext } from "../context/FormStateContext";
 import { toast } from "react-toastify";
 import { useAppStateContext } from "../context/AppStateContext";
 import ErrorMessage from "../components/ErrorMessage";
+import ErrorToast from "./ErrorToast";
 
 interface Props {
   control: Control<FieldValues, Object>;
@@ -26,7 +27,8 @@ const MoneyInput = ({ control, name }: Props) => {
   const currency = watch("currency");
 
   return (
-    <div className="
+    <div
+      className="
       flex 
       flex-col 
       sm:justify-between 
@@ -118,7 +120,7 @@ const MoneyInput = ({ control, name }: Props) => {
           },
         });
       } catch (e: any) {
-        toast(e?.response?.data?.message);
+        toast(<ErrorToast message={e?.response?.data?.message} />);
       } finally {
         appDispatch({
           type: "TOGGLE_IS_LOADING",

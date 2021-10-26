@@ -8,15 +8,20 @@ interface Props {
 }
 
 function MoneyText({ type, value, otherProps, testId }: Props) {
-  let baseClasses =
-    "text-2xl tracking-wide lg:my-1 lg:mr-4";
+  let baseClasses = "text-2xl tracking-wide lg:my-1 lg:mr-4";
 
   switch (type) {
     case "networth":
       return (
         <p
           data-testid={testId}
-          className={`${baseClasses} text-4xl ${otherProps?.className} lg:inline-block`}
+          className={`
+            ${baseClasses} 
+            ${value.length <= 14 ? "sm:text-4xl" : 'sm:text-2xl'}
+            lg:text-4xl
+            ${otherProps?.className} 
+            lg:inline-block
+            `}
         >
           {value}
         </p>

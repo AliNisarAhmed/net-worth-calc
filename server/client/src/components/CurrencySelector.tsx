@@ -5,6 +5,7 @@ import * as API from "../api";
 import { useFormStateContext } from "../context/FormStateContext";
 import { toast } from "react-toastify";
 import { useAppStateContext } from "../context/AppStateContext";
+import ErrorToast from "./ErrorToast";
 
 const CurrencySelector = () => {
   const { register, getValues } = useFormContext();
@@ -78,7 +79,7 @@ const CurrencySelector = () => {
         },
       });
     } catch (e: any) {
-      toast(e?.response?.data?.message);
+      toast(<ErrorToast message={e?.response?.data?.message} />);
     } finally {
       appDispatch({
         type: "TOGGLE_IS_LOADING",

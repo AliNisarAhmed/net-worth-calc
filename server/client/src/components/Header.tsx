@@ -7,7 +7,8 @@ function Header() {
     >
       <h1
         className="
-          text-3xl 
+          sm:text-2xl
+          lg:text-4xl 
           text-center
           lg:text-left
           border-2

@@ -22,13 +22,15 @@ function App() {
               position="bottom-right"
               hideProgressBar={true}
               closeOnClick={true}
+              limit={3}
+              role="alert"
             />
             <CurrencySelector />
-            <main>
+            <form>
               <NetWorth />
               <Assets />
               <Liabilities />
-            </main>
+            </form>
           </AppContextProvider>
         </FormStateContextProvider>
       </Layout>
