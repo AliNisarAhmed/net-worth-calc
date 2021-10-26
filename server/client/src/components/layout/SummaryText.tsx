@@ -25,6 +25,7 @@ function SummaryText({ children }: Props) {
         overflow-auto
         h-full
         lg:w-10/12
+        pr-2
       "
       >
         {children}
