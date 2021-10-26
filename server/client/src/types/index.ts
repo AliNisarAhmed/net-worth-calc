@@ -40,8 +40,16 @@ export type CurrencyCode = typeof allCurrencies[number];
 
 // --------------------------- APP -------------------------------
 
+export type CollapseState = "collapsed" | "un-collapsed";
+
+export const toggleCollapse = (c: CollapseState) =>
+  c === "collapsed" ? "un-collapsed" : "collapsed";
+
 export interface AppState {
   isLoading: boolean;
+  collapsed: {
+    [key: string]: CollapseState;
+  };
 }
 
 export type FormFields = {

@@ -1,4 +1,6 @@
 import { useFormContext, useFieldArray } from "react-hook-form";
+import { useAppStateContext } from "../context/AppStateContext";
+import CollapseIcon from "./CollapseIcon";
 import MoneyInput from "./MoneyInput";
 
 interface Props {
@@ -12,6 +14,19 @@ const LineItems = ({ header, name }: Props) => {
     control,
     name,
   });
+  const { state, dispatch } = useAppStateContext();
+
+  if (state.collapsed?.[name] === "collapsed") {
+    return (
+      <div className="flex flex-row justify-between border-b-2 border-gray-100">
+        <h2 className="text-lg my-4 lg:text-xl lg:underline">{header}</h2>
+        <CollapseIcon
+          onClick={toggleCollapse(name)}
+          collapseState={state?.collapsed[name]}
+        />
+      </div>
+    );
+  }
 
   return (
     <div
@@ -20,16 +35,22 @@ const LineItems = ({ header, name }: Props) => {
       divide-black-900
       "
     >
-      <h2
-        className="
+      <div className="flex flex-row justify-between">
+        <h2
+          className="
         text-lg 
         my-4 
         lg:text-xl 
         lg:underline
         "
-      >
-        {header}
-      </h2>
+        >
+          {header}
+        </h2>
+        <CollapseIcon
+          onClick={toggleCollapse(name)}
+          collapseState={state?.collapsed[name]}
+        />
+      </div>
       {fields.map((field, index) => {
         let displayedField = field as { id: string; label: string };
         return (
@@ -72,6 +93,16 @@ const LineItems = ({ header, name }: Props) => {
       })}
     </div>
   );
+
+  function toggleCollapse(name: string) {
+    return () => {
+      console.log("toggle collapse: ", name);
+      dispatch({
+        type: "TOGGLE_COLLAPSE",
+        payload: name,
+      });
+    };
+  }
 };
 
 export default LineItems;

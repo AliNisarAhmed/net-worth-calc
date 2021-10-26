@@ -12,7 +12,10 @@ const AppStateContext = React.createContext<
   | undefined
 >(undefined);
 
-const initialAppState: AppState = { isLoading: false };
+const initialAppState: AppState = {
+  isLoading: false,
+  collapsed: {},
+};
 
 function AppContextProvider({ children }: AppContextProviderProps) {
   const [state, dispatch] = React.useReducer(appStateReducer, initialAppState);
