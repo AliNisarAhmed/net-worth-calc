@@ -8,7 +8,7 @@ interface Props {
 
 function CollapseIcon({ collapseState, onClick }: Props) {
   return (
-    <button onClick={onClick}>
+    <button aria-label="Collapse Section" onClick={onClick}>
       {collapseState === "collapsed" ? (
         <ChevronDownIcon className="h-5 w-5 text-gray-400" />
       ) : (

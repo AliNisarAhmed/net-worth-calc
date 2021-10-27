@@ -43,7 +43,7 @@ const NetWorth = () => {
         )}
         fixedDecimalScale
         className={`tracking-wider ${
-          Number(totalNetWorth) >= 0 ? "text-green-500" : "text-red-500"
+          Number(totalNetWorth) >= 0 ? "text-green-600" : "text-red-500"
         }`}
         currency={currency}
       />

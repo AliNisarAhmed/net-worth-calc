@@ -18,7 +18,15 @@ const Liabilities = () => {
         border-double
         "
       >
-        <h2 className="text-2xl text-red-500">Liabilities</h2>
+        <h2
+          className="
+          sm:text-2xl 
+          lg:text-3xl 
+          text-red-500
+        "
+        >
+          Liabilities
+        </h2>
       </div>
       <fieldset>
         <legend className="sr-only">Short Term liabilities</legend>

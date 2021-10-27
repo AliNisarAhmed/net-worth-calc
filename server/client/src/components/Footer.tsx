@@ -17,7 +17,7 @@ function Footer() {
         <a
           href="https://github.com/AliNisarAhmed"
           className="
-            text-blue-500
+            text-blue-700
             hover:underline
           "
         >

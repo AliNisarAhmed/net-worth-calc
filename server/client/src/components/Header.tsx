@@ -17,7 +17,7 @@ function Header() {
           px-4
           text-white
           tracking-wider
-          text-gray-400
+          text-gray-900
         "
       >
         Track your{" "}

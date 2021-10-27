@@ -102,6 +102,28 @@ describe("Test calculateNetworth function", () => {
         expect(conversionResult.liabilities.totalLiabilities).toBe("13836.59");
         expect(conversionResult.totalNetWorth).toBe("34275.69");
     });
+    test("test calculateNetworth with big numbers", () => {
+        let assets = {
+            cashAndInvestments: [
+                { label: "Line Item 1", amount: "1000000000000000000" },
+                { label: "Line Item 2", amount: "1000000000000000000" },
+            ],
+            longTermAssets: [
+                { label: "Line Item 3", amount: "1000000000000000000" },
+                { label: "Line Item 4", amount: "1000000000000000000" },
+            ],
+            totalAssets: "",
+        };
+        let liabilities = {
+            longTerm: [{ label: "Line Item 4", amount: "1000000000000000000" }],
+            shortTerm: [{ label: "Line Item 5", amount: "100000000000000000" }],
+            totalLiabilities: "",
+        };
+        const result = (0, networth_1.calculateNetworth)(assets, liabilities, types_1.CurrencyCode.USD);
+        expect(result.totalAssets).toBe("4000000000000000000");
+        expect(result.totalLiabilities).toBe("1100000000000000000");
+        expect(result.totalNetWorth).toBe("2900000000000000000");
+    });
 });
 describe("Test Line Item conversion", () => {
     test("Convert from USD to CAD", () => {
@@ -157,7 +179,7 @@ describe("Test Line Item conversion", () => {
         expect(res1.amount).toEqual("100");
     });
 });
-describe("Test: floatToRate function", () => {
+describe("Test: getNumberWithScale function", () => {
     test("Correct amount and scale for number less than zero", () => {
         let n1 = 0.12345;
         let n2 = 0.0234;

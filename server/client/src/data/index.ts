@@ -34,7 +34,7 @@ export const data: NetWorth = {
       { label: "Mortgage 1", amount: "0" },
       { label: "Mortgage 2", amount: "0" },
       { label: "Line of Credit", amount: "0" },
-      { label: "Investment Load", amount: "0" },
+      { label: "Investment Loan", amount: "0" },
     ],
   },
 };

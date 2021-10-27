@@ -21,8 +21,9 @@ const Assets = () => {
       >
         <h2
           className="
-          text-2xl 
-          text-green-500 
+          lg:text-3xl 
+          sm:text-2xl
+          text-green-600 
           mb-2
           "
         >

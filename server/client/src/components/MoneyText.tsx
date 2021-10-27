@@ -30,7 +30,7 @@ function MoneyText({ type, value, otherProps, testId }: Props) {
       return (
         <p
           data-testid={testId}
-          className={`${baseClasses} text-green-500 lg:text-3xl`}
+          className={`${baseClasses} text-green-600 lg:text-3xl`}
         >
           {value}
         </p>
@@ -39,7 +39,7 @@ function MoneyText({ type, value, otherProps, testId }: Props) {
       return (
         <p
           data-testid={testId}
-          className={`${baseClasses} text-red-500 lg:text-3xl`}
+          className={`${baseClasses} text-red-600 lg:text-3xl`}
         >
           {value}
         </p>
