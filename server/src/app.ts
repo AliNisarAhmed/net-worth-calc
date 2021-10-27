@@ -3,6 +3,7 @@ import netWorthRouter from "./routes/networth";
 import cors from "cors";
 import { httpErrorHandler, genericErrorHandler } from "./routes/errorHandler";
 import path from "path";
+import helmet from "helmet";
 
 export default async () => {
   const app = express();
@@ -11,6 +12,7 @@ export default async () => {
 
   app.use(cors());
   app.use(express.json());
+  app.use(helmet());
 
   app.use("/api", netWorthRouter);
 
