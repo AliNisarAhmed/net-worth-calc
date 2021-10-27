@@ -133,11 +133,11 @@ function convertLineItem(
 
   const amountDinero = numberToDinero(item.amount, oldCurrency);
 
-  let rates = {
+  const rates = {
     [newCurrency.code]: scaledRate,
   };
 
-  let converted = D.convert(amountDinero, newCurrency, rates);
+  const converted = D.convert(amountDinero, newCurrency, rates);
 
   return {
     ...item,
