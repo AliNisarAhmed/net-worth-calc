@@ -4,6 +4,7 @@ import cors from "cors";
 import { httpErrorHandler, genericErrorHandler } from "./routes/errorHandler";
 import path from "path";
 import helmet from "helmet";
+import setCache from "./routes/middleware/cacheControlMW";
 
 export default async () => {
   const app = express();
@@ -15,6 +16,8 @@ export default async () => {
   app.use(helmet());
 
   app.use("/api", netWorthRouter);
+
+  app.use(setCache)
 
   app.get("*", (req, res) => {
     return res.sendFile(
