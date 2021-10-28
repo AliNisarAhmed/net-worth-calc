@@ -5,6 +5,7 @@ import { useFormContext } from "react-hook-form";
 import NumberFormat from "react-number-format";
 import MoneyText from "./MoneyText";
 import SummaryText from "./layout/SummaryText";
+import { strings } from "../strings";
 
 const Liabilities = () => {
   const { watch } = useFormContext();
@@ -23,9 +24,10 @@ const Liabilities = () => {
           sm:text-2xl 
           lg:text-3xl 
           text-red-500
+          capitalize
         "
         >
-          Liabilities
+          {strings.liabilities.main}
         </h2>
       </div>
       <fieldset>

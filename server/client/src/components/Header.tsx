@@ -1,3 +1,5 @@
+import { strings } from "../strings";
+
 function Header() {
   return (
     <header
@@ -20,8 +22,10 @@ function Header() {
           text-gray-900
         "
       >
-        Track your{" "}
-        <span className="text-gold font-bold uppercase">Net Worth</span>
+        {strings.header.prefix}{" "}
+        <span className="text-gold font-bold uppercase">
+          {strings.header.main}
+        </span>
       </h1>
     </header>
   );
