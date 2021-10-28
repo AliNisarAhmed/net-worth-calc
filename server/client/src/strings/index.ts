@@ -4,8 +4,21 @@ type Strings = {
   currencyLabels: {
     [key in CurrencyCode]: string;
   };
+  header: {
+    prefix: string;
+    main: string;
+  };
+  assets: {
+    main: string;
+  };
+  liabilities: {
+    main: string;
+  };
   currencySymbols: {
     [key in CurrencyCode]: string;
+  };
+  netWorth: {
+    main: string;
   };
 };
 
@@ -21,6 +34,19 @@ const strings: Strings = {
     aud: "Australian Dollar",
     sgd: "Singapore Dollar",
     aed: "UAD Dirham",
+  },
+  header: {
+    prefix: "Track your",
+    main: "net worth",
+  },
+  netWorth: {
+    main: "net worth",
+  },
+  assets: {
+    main: "assets",
+  },
+  liabilities: {
+    main: "liabilities",
   },
   currencySymbols: {
     cad: "\u0024",

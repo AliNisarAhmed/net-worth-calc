@@ -1,5 +1,6 @@
 import { useFormContext } from "react-hook-form";
 import NumberFormat, { NumberFormatProps } from "react-number-format";
+import { strings } from "../strings";
 import { getCurrencySymbol } from "../utils";
 import MoneyText from "./MoneyText";
 
@@ -26,7 +27,9 @@ const NetWorth = () => {
       overflow-x-auto
     "
     >
-      <p className="inline-block lg:text-2xl lg:mr-4">Net Worth:</p>
+      <p className="inline-block lg:text-2xl lg:mr-4">
+        {strings.netWorth.main}:
+      </p>
       <NumberFormat
         defaultValue={0}
         thousandSeparator=","
@@ -39,7 +42,12 @@ const NetWorth = () => {
         decimalScale={2}
         // @ts-ignore
         renderText={(val: string, props: NumberFormatProps) => (
-          <MoneyText testId="totalnetworth" value={val} type="networth" otherProps={props} />
+          <MoneyText
+            testId="totalnetworth"
+            value={val}
+            type="networth"
+            otherProps={props}
+          />
         )}
         fixedDecimalScale
         className={`tracking-wider ${
