@@ -30,11 +30,9 @@ test("loads and displays default data", async () => {
   const queries = render(<App />);
   const netWorthText = queries.getByTestId("totalnetworth");
   const totalAssetsText = queries.getByTestId("totalAssets");
-  const totalLiabText = queries.getByTestId("totalLiabilities");
 
   expect(netWorthText).toHaveTextContent("0.00");
   expect(totalAssetsText).toHaveTextContent("0.00");
-  expect(totalLiabText).toHaveTextContent("0.00");
 });
 
 test("When user inputs numbers and removes focus, app fetches net worth calculation and displays it", async () => {

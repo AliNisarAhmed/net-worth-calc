@@ -10,5 +10,13 @@ const config: Config.InitialOptions = {
     "<rootDir>/client/node_modules/",
     "<rootDir>/server/dist/",
   ],
+  testPathIgnorePatterns: [
+    "dist/",
+    "<rootDir>/client/",
+    "<rootDir>/client/dist/",
+    "<rootDir>/node_modules/",
+    "<rootDir>/client/node_modules/",
+    "<rootDir>/server/dist/",
+  ],
 };
 export default config;
