@@ -25,6 +25,7 @@ const NetWorth = () => {
       lg:items-baseline
       whitespace-nowrap
       overflow-x-auto
+      capitalize
     "
     >
       <p className="inline-block lg:text-2xl lg:mr-4">
