@@ -21,7 +21,7 @@ function httpErrorHandler(
   res: Response,
   next: NextFunction
 ) {
-  console.log("httpErrorHandler");
+  console.log("httpErrorHandler", err.name, err.stack, err.message, err.status);
   if (!(err instanceof HttpException)) {
     return next(err);
   }
@@ -34,7 +34,7 @@ function genericErrorHandler(
   res: Response,
   next: NextFunction
 ) {
-  console.log("genericErrorHandler", err.message);
+  console.log("genericErrorHandler", err.message, err.stack);
   res.status(500);
   return res.json({ status: 500, message: err.message });
 }
