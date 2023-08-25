@@ -82,7 +82,16 @@ function numberToDinero(n: string, currency: Currency<number>): Dinero<number> {
 }
 
 function dineroToString(dinero: Dinero<number>): string {
-  return String(D.toUnit(dinero, { digits: 2, round: D.halfEven }));
+  return D.toDecimal(dinero, ({ value }) => `${format(value)}`);
+}
+
+function format(value: string): string {
+  const parsed = parseFloat(value).toFixed(2);
+  if (parsed.endsWith(".00")) {
+    return parseInt(parsed).toString();
+  }
+
+  return parsed;
 }
 
 // --------------------------------------------------------------------------------

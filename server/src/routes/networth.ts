@@ -39,9 +39,7 @@ router.post(
   validateRequestMW<CalculateNetWorthRequest>(calculateNetWorthRequestSchema),
   asyncHandler((req: Request, res: any) => {
     const { assets, liabilities, currency } = req.body;
-
     const netWorth = calculateNetworth(assets, liabilities, currency);
-
     return res.json(netWorth);
   })
 );

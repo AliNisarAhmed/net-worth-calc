@@ -84,7 +84,7 @@ describe("Test calculateNetworth function", () => {
     );
 
     expect(conversionResult.assets.totalAssets).toBe("3073.65");
-    expect(conversionResult.liabilities.totalLiabilities).toBe("151.9");
+    expect(conversionResult.liabilities.totalLiabilities).toBe("151.90");
     expect(conversionResult.totalNetWorth).toBe("2921.75");
   });
 
