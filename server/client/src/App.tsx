@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { AppContextProvider } from "./context/AppStateContext";
 import Header from "./components/Header";
 import { lazy, Suspense } from "react";
+import AppStatus from "./components/AppStatus";
 
 const Footer = lazy(() => import("./components/Footer"));
 const Liabilities = lazy(() => import("./components/Liabilities"));
@@ -15,6 +16,7 @@ const Liabilities = lazy(() => import("./components/Liabilities"));
 function App() {
   return (
     <>
+      <AppStatus />
       <Header />
       <Layout>
         <FormStateContextProvider>

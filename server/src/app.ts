@@ -1,5 +1,6 @@
 import express from "express";
 import netWorthRouter from "./routes/networth";
+import statusRouter from './routes/status';
 import cors from "cors";
 import { httpErrorHandler, genericErrorHandler } from "./routes/errorHandler";
 import path from "path";
@@ -15,6 +16,7 @@ export default async () => {
   app.use(express.json());
   app.use(helmet());
 
+  app.use("/status", statusRouter);
   app.use("/api", netWorthRouter);
 
   app.use(setCache)

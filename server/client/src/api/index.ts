@@ -7,7 +7,7 @@ import {
 } from "../types";
 
 export async function convertNetWorth(
-  req: ConvertNetWorthRequest
+  req: ConvertNetWorthRequest,
 ): Promise<NetWorth> {
   const res = await axios.post(`/api/networth/convert`, req);
 
@@ -15,9 +15,14 @@ export async function convertNetWorth(
 }
 
 export async function calculateNetWorthOnServer(
-  req: CalculateNetWorthRequest
+  req: CalculateNetWorthRequest,
 ): Promise<NetWorthCalculationResponse> {
   const res = await axios.post(`/api/networth/calculate`, req);
 
   return res.data as NetWorthCalculationResponse;
+}
+
+export async function getAppStatus() {
+  const res = await axios.get("/status");
+  return res.data as { msg: string };
 }
